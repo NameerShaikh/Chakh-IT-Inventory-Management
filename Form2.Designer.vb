@@ -37,10 +37,10 @@ Partial Class FrmMain
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.contentPanel = New System.Windows.Forms.Panel()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -53,50 +53,50 @@ Partial Class FrmMain
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 2, 0, 2)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1181, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1181, 28)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
         'DAshboardToolStripMenuItem
         '
         Me.DAshboardToolStripMenuItem.Name = "DAshboardToolStripMenuItem"
-        Me.DAshboardToolStripMenuItem.Size = New System.Drawing.Size(96, 26)
+        Me.DAshboardToolStripMenuItem.Size = New System.Drawing.Size(96, 24)
         Me.DAshboardToolStripMenuItem.Text = "Dashboard"
         '
         'StockINToolStripMenuItem
         '
         Me.StockINToolStripMenuItem.Name = "StockINToolStripMenuItem"
-        Me.StockINToolStripMenuItem.Size = New System.Drawing.Size(78, 26)
+        Me.StockINToolStripMenuItem.Size = New System.Drawing.Size(78, 24)
         Me.StockINToolStripMenuItem.Text = "Stock IN"
         '
         'StockOutToolStripMenuItem
         '
         Me.StockOutToolStripMenuItem.Name = "StockOutToolStripMenuItem"
-        Me.StockOutToolStripMenuItem.Size = New System.Drawing.Size(92, 26)
+        Me.StockOutToolStripMenuItem.Size = New System.Drawing.Size(92, 24)
         Me.StockOutToolStripMenuItem.Text = "Stock OUT"
         '
         'RawMaterialInToolStripMenuItem
         '
         Me.RawMaterialInToolStripMenuItem.Name = "RawMaterialInToolStripMenuItem"
-        Me.RawMaterialInToolStripMenuItem.Size = New System.Drawing.Size(126, 26)
+        Me.RawMaterialInToolStripMenuItem.Size = New System.Drawing.Size(126, 24)
         Me.RawMaterialInToolStripMenuItem.Text = "Raw Material In"
         '
         'ReportsToolStripMenuItem
         '
         Me.ReportsToolStripMenuItem.Name = "ReportsToolStripMenuItem"
-        Me.ReportsToolStripMenuItem.Size = New System.Drawing.Size(74, 26)
+        Me.ReportsToolStripMenuItem.Size = New System.Drawing.Size(74, 24)
         Me.ReportsToolStripMenuItem.Text = "Reports"
         '
         'BillsToolStripMenuItem
         '
         Me.BillsToolStripMenuItem.Name = "BillsToolStripMenuItem"
-        Me.BillsToolStripMenuItem.Size = New System.Drawing.Size(50, 26)
+        Me.BillsToolStripMenuItem.Size = New System.Drawing.Size(50, 24)
         Me.BillsToolStripMenuItem.Text = "Bills"
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(47, 26)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(47, 24)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'Label2
@@ -135,10 +135,10 @@ Partial Class FrmMain
         Me.Panel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Panel1.Controls.Add(Me.Button3)
         Me.Panel1.Controls.Add(Me.Button6)
         Me.Panel1.Controls.Add(Me.Button5)
         Me.Panel1.Controls.Add(Me.Button4)
-        Me.Panel1.Controls.Add(Me.Button3)
         Me.Panel1.Controls.Add(Me.Button2)
         Me.Panel1.Controls.Add(Me.Button1)
         Me.Panel1.Location = New System.Drawing.Point(21, 153)
@@ -183,18 +183,6 @@ Partial Class FrmMain
         Me.Button4.Text = "Raw Materials"
         Me.Button4.UseVisualStyleBackColor = True
         '
-        'Button3
-        '
-        Me.Button3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button3.Location = New System.Drawing.Point(3, 121)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(291, 49)
-        Me.Button3.TabIndex = 21
-        Me.Button3.Text = "Stock OUT"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
         'Button2
         '
         Me.Button2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -204,7 +192,7 @@ Partial Class FrmMain
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(291, 49)
         Me.Button2.TabIndex = 20
-        Me.Button2.Text = "Stock IN"
+        Me.Button2.Text = "Stock"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Button1
@@ -232,6 +220,18 @@ Partial Class FrmMain
         Me.contentPanel.Size = New System.Drawing.Size(799, 421)
         Me.contentPanel.TabIndex = 20
         '
+        'Button3
+        '
+        Me.Button3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button3.Location = New System.Drawing.Point(3, 350)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(291, 49)
+        Me.Button3.TabIndex = 25
+        Me.Button3.Text = "Settings"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -248,6 +248,7 @@ Partial Class FrmMain
         Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Name = "FrmMain"
         Me.Text = "CHAKH IT Inventory Management"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -273,7 +274,7 @@ Partial Class FrmMain
     Friend WithEvents Button6 As Button
     Friend WithEvents Button5 As Button
     Friend WithEvents Button4 As Button
-    Friend WithEvents Button3 As Button
     Friend WithEvents Button2 As Button
     Public WithEvents contentPanel As Panel
+    Friend WithEvents Button3 As Button
 End Class

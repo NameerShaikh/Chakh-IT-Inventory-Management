@@ -107,6 +107,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.OleDb, Version=9.0.0.9, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.OleDb.9.0.9\lib\net462\System.Data.OleDb.dll</HintPath>
+    </Reference>
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -191,16 +194,28 @@
     <Compile Include="RawMaterials.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="RawMaterialsIn.Designer.vb">
+      <DependentUpon>RawMaterialsIn.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RawMaterialsIn.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RawMaterialsOut.Designer.vb">
+      <DependentUpon>RawMaterialsOut.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RawMaterialsOut.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Reports.Designer.vb">
       <DependentUpon>Reports.vb</DependentUpon>
     </Compile>
     <Compile Include="Reports.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StockIn.Designer.vb">
-      <DependentUpon>StockIn.vb</DependentUpon>
+    <Compile Include="AvailableStock.Designer.vb">
+      <DependentUpon>AvailableStock.vb</DependentUpon>
     </Compile>
-    <Compile Include="StockIn.vb">
+    <Compile Include="AvailableStock.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="StockInForm.Designer.vb">
@@ -209,10 +224,10 @@
     <Compile Include="StockInForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StockOut.Designer.vb">
-      <DependentUpon>StockOut.vb</DependentUpon>
+    <Compile Include="StockOutForm.Designer.vb">
+      <DependentUpon>StockOutForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="StockOut.vb">
+    <Compile Include="StockOutForm.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -238,17 +253,23 @@
     <EmbeddedResource Include="RawMaterials.resx">
       <DependentUpon>RawMaterials.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RawMaterialsIn.resx">
+      <DependentUpon>RawMaterialsIn.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RawMaterialsOut.resx">
+      <DependentUpon>RawMaterialsOut.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports.resx">
       <DependentUpon>Reports.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StockIn.resx">
-      <DependentUpon>StockIn.vb</DependentUpon>
+    <EmbeddedResource Include="AvailableStock.resx">
+      <DependentUpon>AvailableStock.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StockInForm.resx">
       <DependentUpon>StockInForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StockOut.resx">
-      <DependentUpon>StockOut.vb</DependentUpon>
+    <EmbeddedResource Include="StockOutForm.resx">
+      <DependentUpon>StockOutForm.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -262,6 +283,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -274,6 +296,35 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

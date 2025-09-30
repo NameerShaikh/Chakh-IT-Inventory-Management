@@ -5,23 +5,32 @@ Imports System.IO
 
 Public Class FrmMain
 
-    Private Sub FrmMain_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-        contentPanel.Refresh() ' forces redraw, usually optional
-    End Sub
 
+    ' Method to load any form into contentPanel
+    Private Sub LoadFormInPanel(frm As Form)
+        frm.TopLevel = False
+        frm.FormBorderStyle = FormBorderStyle.None
+        frm.Dock = DockStyle.Fill
+
+        ' Clear previous content
+        contentPanel.Controls.Clear()
+        contentPanel.Controls.Add(frm)
+
+        ' Ensure layout is refreshed
+        frm.Show()
+        frm.BringToFront()
+        contentPanel.Refresh()
+    End Sub
 
 
     ' Create DashboardForm instance
     Private dashboard As New DashboardForm()
 
     ' Create StockInForm instance
-    Private stockInForm As New StockIn()
-
-    ' Create StockOutForm instance
-    Private stockOutForm As New StockOut()
+    Public availableStockForm As New AvailableStock()
 
     ' Create RawMaterialsForm instance
-    Private rawMaterialsForm As New RawMaterials()
+    Private rawMaterialsForm As New AvailableRawMaterials()
 
     ' Create ReportsForm instance
     Private reportsForm As New Reports()
@@ -41,31 +50,41 @@ Public Class FrmMain
 
     ' Form Load
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Label2.Text = "Dashboard"
+
         ' Use the instance "dashboard", not the class
         ShowPanelInContentPanel(dashboard.dashboardPanel)
-        Label2.Text = "Dashboard"
+
     End Sub
 
     ' Dashboard button
     Public Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        ShowPanelInContentPanel(dashboard.dashboardPanel)
+
         Label2.Text = "Dashboard"
+
+        ShowPanelInContentPanel(dashboard.dashboardPanel)
+
     End Sub
 
     ' Stock IN button
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        ShowPanelInContentPanel(stockInForm.stockInPanel)
-        Label2.Text = "Stock IN"
-    End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        ShowPanelInContentPanel(stockOutForm.stockOutPanel)
-        Label2.Text = "Stock OUT"
+        Label2.Text = "Stock"
+
+        Dim stockForm As New AvailableStock()
+        LoadFormInPanel(stockForm)
+
+
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        ShowPanelInContentPanel(rawMaterialsForm.rawMaterialsPanel)
+
         Label2.Text = "Raw Materials"
+
+        Dim rawForm As New AvailableRawMaterials()
+        LoadFormInPanel(rawForm)
+
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
