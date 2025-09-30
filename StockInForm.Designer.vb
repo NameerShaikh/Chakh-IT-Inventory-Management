@@ -65,7 +65,7 @@ Partial Class StockInForm
         '
         'numQuantity
         '
-        Me.numQuantity.Location = New System.Drawing.Point(513, 366)
+        Me.numQuantity.Location = New System.Drawing.Point(527, 392)
         Me.numQuantity.Name = "numQuantity"
         Me.numQuantity.Size = New System.Drawing.Size(386, 22)
         Me.numQuantity.TabIndex = 3
@@ -114,7 +114,7 @@ Partial Class StockInForm
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(199, 366)
+        Me.Label4.Location = New System.Drawing.Point(188, 392)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(55, 16)
         Me.Label4.TabIndex = 9

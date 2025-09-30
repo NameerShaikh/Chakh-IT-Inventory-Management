@@ -1,5 +1,5 @@
-Product Name,MRP,Outer (Pcs),Master Outer,Total Pcs
-Rangeen Pop,10,50,12,1100
-Melon Pop,20,50,12,600
-Jalebi Jelly,10,65,22,720
-Mango Cubes,90,50,16,1500
+Product,MRP,PcsPerOuter,Outer,TotalPcs
+Rangeen Pop,10,50,20,600
+Melon Pop,20,50,10,600
+Jalebi Jelly,10,50,20,1000
+Mango Cubes,90,50,10,500

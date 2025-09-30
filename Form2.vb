@@ -48,8 +48,71 @@ Public Class FrmMain
         contentPanel.Refresh()
     End Sub
 
+
+
+
+    ' In your main form Load or constructor
+    Private Sub ApplyTheme()
+        ' Fonts
+        Me.Font = New Font("Segoe UI", 10)
+
+        ' Background colors
+        Me.BackColor = Color.FromArgb(240, 240, 240)   ' Light gray
+
+        ' Panels and buttons
+        Panel1.BackColor = Color.FromArgb(52, 73, 94)   ' Dark blue
+        contentPanel.BackColor = Color.White
+
+        For Each ctrl As Control In Panel1.Controls
+            If TypeOf ctrl Is Button Then
+                Dim btn As Button = CType(ctrl, Button)
+                btn.ForeColor = Color.White
+                btn.FlatStyle = FlatStyle.Flat
+                btn.FlatAppearance.BorderSize = 0
+                btn.Font = New Font("Segoe UI Semibold", 10)
+            End If
+        Next
+
+        ' Labels
+        Label2.ForeColor = Color.FromArgb(52, 73, 94)
+        Label2.Font = New Font("Segoe UI", 16, FontStyle.Bold)
+    End Sub
+
+
+
+    Private Sub ResizeButtonFont(btn As Button)
+        Dim fontSize As Single = 1.0F
+        Dim g As Graphics = btn.CreateGraphics()
+        Dim stringSize As SizeF
+
+        Do
+            fontSize += 0.5F
+            btn.Font = New Font(btn.Font.FontFamily, fontSize, btn.Font.Style)
+            stringSize = g.MeasureString(btn.Text, btn.Font)
+        Loop While stringSize.Width < btn.Width - 10 AndAlso stringSize.Height < btn.Height - 10
+
+        ' Slightly reduce to fit perfectly
+        btn.Font = New Font(btn.Font.FontFamily, fontSize - 0.5F, btn.Font.Style)
+        g.Dispose()
+    End Sub
+
+
+
+
     ' Form Load
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+
+        ApplyTheme()
+        ResizeButtonFont(Button1)
+        ResizeButtonFont(Button2)
+        ResizeButtonFont(Button3)
+        ResizeButtonFont(Button4)
+        ResizeButtonFont(Button5)
+        ResizeButtonFont(Button6)
+
+
+
 
         Label2.Text = "Dashboard"
 

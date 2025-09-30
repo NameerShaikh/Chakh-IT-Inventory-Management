@@ -2,8 +2,10 @@
 
 Public Class AvailableStock
 
+    Private productListPath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\ProductList.csv"
+
     Private Sub AvailableStock_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LoadCSVToDGV("C:\CHAKH IT Management Software\WindowsApp1\AppFolder\ProductList.csv")
+        LoadCSVToDGV(productListPath)
     End Sub
 
     Public Sub LoadCSVToDGV(filePath As String)
@@ -20,7 +22,15 @@ Public Class AvailableStock
         ' Skip the header row
         For i As Integer = 1 To lines.Length - 1
             Dim values() As String = lines(i).Split(","c)
-            dgvAvailableStock.Rows.Add(values)
+            If values.Length >= 4 Then
+                Dim product As String = values(0)
+                Dim mrp As String = values(1)
+                Dim pcsPerOuter As Integer = CInt(values(2))
+                Dim outer As Integer = CInt(values(3))
+                Dim totalPcs As Integer = pcsPerOuter * outer
+
+                dgvAvailableStock.Rows.Add(product, mrp, pcsPerOuter, outer, totalPcs)
+            End If
         Next
 
         ' Appearance
@@ -29,13 +39,13 @@ Public Class AvailableStock
         dgvAvailableStock.SelectionMode = DataGridViewSelectionMode.FullRowSelect
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        ' Create a new instance of StockInForm
+    Private Sub btnAddStock_Click(sender As Object, e As EventArgs) Handles btnAddStock.Click
         Dim stockForm As New StockInForm()
         stockForm.Show()
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        StockOutForm.Show()
+    Private Sub btnRemoveStock_Click(sender As Object, e As EventArgs) Handles btnRemoveStock.Click
+        Dim stockOutForm As New StockOutForm()
+        stockOutForm.Show()
     End Sub
 End Class

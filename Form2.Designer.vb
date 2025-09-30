@@ -34,13 +34,13 @@ Partial Class FrmMain
         Me.Label3 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.contentPanel = New System.Windows.Forms.Panel()
-        Me.Button3 = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -141,17 +141,29 @@ Partial Class FrmMain
         Me.Panel1.Controls.Add(Me.Button4)
         Me.Panel1.Controls.Add(Me.Button2)
         Me.Panel1.Controls.Add(Me.Button1)
-        Me.Panel1.Location = New System.Drawing.Point(21, 153)
+        Me.Panel1.Location = New System.Drawing.Point(21, 140)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(297, 460)
+        Me.Panel1.Size = New System.Drawing.Size(297, 503)
         Me.Panel1.TabIndex = 19
+        '
+        'Button3
+        '
+        Me.Button3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button3.Location = New System.Drawing.Point(3, 272)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(291, 49)
+        Me.Button3.TabIndex = 25
+        Me.Button3.Text = "Settings"
+        Me.Button3.UseVisualStyleBackColor = True
         '
         'Button6
         '
         Me.Button6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button6.Location = New System.Drawing.Point(3, 286)
+        Me.Button6.Location = New System.Drawing.Point(3, 219)
         Me.Button6.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(291, 49)
@@ -163,7 +175,7 @@ Partial Class FrmMain
         '
         Me.Button5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button5.Location = New System.Drawing.Point(3, 230)
+        Me.Button5.Location = New System.Drawing.Point(3, 166)
         Me.Button5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(291, 49)
@@ -175,7 +187,7 @@ Partial Class FrmMain
         '
         Me.Button4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button4.Location = New System.Drawing.Point(3, 175)
+        Me.Button4.Location = New System.Drawing.Point(3, 113)
         Me.Button4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(291, 49)
@@ -187,7 +199,7 @@ Partial Class FrmMain
         '
         Me.Button2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(3, 65)
+        Me.Button2.Location = New System.Drawing.Point(3, 60)
         Me.Button2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(291, 49)
@@ -197,8 +209,6 @@ Partial Class FrmMain
         '
         'Button1
         '
-        Me.Button1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Button1.Location = New System.Drawing.Point(3, 7)
         Me.Button1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button1.Name = "Button1"
@@ -219,18 +229,6 @@ Partial Class FrmMain
         Me.contentPanel.Name = "contentPanel"
         Me.contentPanel.Size = New System.Drawing.Size(799, 421)
         Me.contentPanel.TabIndex = 20
-        '
-        'Button3
-        '
-        Me.Button3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button3.Location = New System.Drawing.Point(3, 350)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(291, 49)
-        Me.Button3.TabIndex = 25
-        Me.Button3.Text = "Settings"
-        Me.Button3.UseVisualStyleBackColor = True
         '
         'FrmMain
         '
