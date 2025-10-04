@@ -97,13 +97,147 @@ Public Class FrmMain
     End Sub
 
 
+    ' Active button reference
+    Private activeButton As Button
+    Private activeIndicator As Panel
+
+    Private Sub StyleSidePanel()
+        ' === Sidebar Panel ===
+        Panel1.Dock = DockStyle.None   ' No full dock
+        Panel1.Width = 200
+        Panel1.Location = New Point(0, 100)   ' Start just below logo/title
+        Panel1.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
+        Panel1.BackColor = Color.FromArgb(36, 47, 61)
+
+        ' Stretch to fill the remaining height
+        Panel1.Height = Me.ClientSize.Height - Panel1.Top
+
+        ' === Active Indicator ===
+        activeIndicator = New Panel()
+        activeIndicator.Size = New Size(5, 40)
+        activeIndicator.BackColor = Color.FromArgb(0, 191, 255)
+        activeIndicator.Visible = False
+        Panel1.Controls.Add(activeIndicator)
+
+        ' === Button Styling ===
+        For Each ctrl As Control In Panel1.Controls
+            If TypeOf ctrl Is Button Then
+                Dim btn As Button = CType(ctrl, Button)
+
+                btn.Dock = DockStyle.Top
+                btn.Height = 40
+                btn.FlatStyle = FlatStyle.Flat
+                btn.FlatAppearance.BorderSize = 0
+
+                btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(64, 75, 95)
+                btn.FlatAppearance.MouseDownBackColor = Color.FromArgb(41, 128, 185)
+
+                btn.BackColor = Color.FromArgb(36, 47, 61)
+                btn.ForeColor = Color.White
+                btn.Font = New Font("Segoe UI", 10, FontStyle.Regular)
+                btn.TextAlign = ContentAlignment.MiddleLeft
+                btn.Padding = New Padding(12, 0, 0, 0)
+
+                AddHandler btn.Click, AddressOf SideButton_Click
+            End If
+        Next
+    End Sub
+
+    ' Auto-resize when form size changes
+    Private Sub MainForm_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        Panel1.Height = Me.ClientSize.Height - Panel1.Top
+    End Sub
+
+
+
+    Private Sub SideButton_Click(sender As Object, e As EventArgs)
+        Dim clickedButton As Button = CType(sender, Button)
+
+        ' Reset previous button
+        If activeButton IsNot Nothing Then
+            activeButton.BackColor = Color.FromArgb(36, 47, 61)
+            activeButton.ForeColor = Color.White
+        End If
+
+        ' Set new active button
+        activeButton = clickedButton
+        activeButton.BackColor = Color.FromArgb(41, 128, 185) ' Active blue
+        activeButton.ForeColor = Color.White
+
+        ' Move active indicator
+        activeIndicator.Visible = True
+        activeIndicator.Top = activeButton.Top
+        activeIndicator.BringToFront()
+    End Sub
+
+
+
+
+    Private appStartTime As DateTime = DateTime.Now ' Store app start time
+
+    Private Sub AddMiniStatusPanel()
+        ' Panel to hold status indicators
+        Dim statusPanel As New Panel()
+        statusPanel.Width = Panel1.Width
+        statusPanel.Height = 170
+        statusPanel.BackColor = Color.FromArgb(44, 62, 80) ' Darker than side panel
+        statusPanel.Dock = DockStyle.Bottom
+        statusPanel.Padding = New Padding(10)
+
+        ' Define status items: Icon + Text
+        Dim statuses As New List(Of Tuple(Of String, String)) From {
+        New Tuple(Of String, String)("✅", "App Status: Running"),
+        New Tuple(Of String, String)("📂", "Database: Connected"),
+        New Tuple(Of String, String)("⚡", "User: Admin"),
+        New Tuple(Of String, String)("🕒", $"App Started On:{Environment.NewLine}{appStartTime.ToString("dd-MM-yyyy")}{Environment.NewLine}{appStartTime.ToString("HH:mm:ss")}")
+    }
+
+        Dim yPos As Integer = 10
+
+        For Each item In statuses
+            ' Icon label
+            Dim lblIcon As New Label()
+            lblIcon.Text = item.Item1
+            lblIcon.Font = New Font("Segoe UI", 14, FontStyle.Regular)
+            lblIcon.ForeColor = Color.LimeGreen
+            lblIcon.AutoSize = True
+            lblIcon.Location = New Point(10, yPos)
+            statusPanel.Controls.Add(lblIcon)
+
+            ' Text label
+            Dim lblText As New Label()
+            lblText.Text = item.Item2
+            lblText.Font = New Font("Segoe UI", 10, FontStyle.Regular)
+            lblText.ForeColor = Color.White
+            lblText.AutoSize = True
+            lblText.Location = New Point(40, yPos)
+            statusPanel.Controls.Add(lblText)
+
+            ' Adjust spacing
+            Dim lineCount As Integer = item.Item2.Count(Function(c) c = vbLf) + 1
+            yPos += 25 * lineCount + 5
+        Next
+
+        ' Add panel to sidebar
+        Panel1.Controls.Add(statusPanel)
+        statusPanel.BringToFront()
+    End Sub
+
+
+
+
 
 
     ' Form Load
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
-        ApplyTheme()
+        'ApplyTheme()
+        StyleSidePanel()
+        AddMiniStatusPanel()
+
+
+
         ResizeButtonFont(Button1)
         ResizeButtonFont(Button2)
         ResizeButtonFont(Button3)
@@ -116,7 +250,7 @@ Public Class FrmMain
 
         Label2.Text = "Dashboard"
 
-        ' Use the instance "dashboard", not the class
+
         ShowPanelInContentPanel(dashboard.dashboardPanel)
 
     End Sub
@@ -150,14 +284,23 @@ Public Class FrmMain
 
     End Sub
 
+
+
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
         ShowPanelInContentPanel(reportsForm.reportsPanel)
         Label2.Text = "Reports"
+
+
+
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         ShowPanelInContentPanel(billsForm.billsPanel)
         Label2.Text = "Bills"
+    End Sub
+
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+
     End Sub
 End Class
 

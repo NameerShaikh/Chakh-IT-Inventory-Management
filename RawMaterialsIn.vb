@@ -2,86 +2,84 @@
 
 Partial Class RawMaterialsInForm
 
-    Private csvFilePath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\RawMaterials.csv"
+    Private stockFilePath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\RawMaterialsIn.csv"
+    Private configPath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\RawMaterialsConfig.csv"
+
+    ' Dictionary to map raw material -> unit
+    Private rawMaterialUnitMap As New Dictionary(Of String, String)(StringComparer.OrdinalIgnoreCase)
 
     Private Sub RawMaterialsInForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Your load logic
-        ' Ensure CSV file exists
-        If Not File.Exists(csvFilePath) Then
-            File.WriteAllText(csvFilePath, "Product,Unit,Quantity" & Environment.NewLine)
+        ' Clear fields
+        txtRawMaterial.Text = ""
+        lblUnit.Text = ""
+        numQuantity.Text = ""
+        txtDate.Text = DateTime.Now.ToString("dd-MM-yyyy")
+        txtTime.Text = DateTime.Now.ToString("HH:mm:ss")
+
+        ' Ensure CSV exists
+        If Not File.Exists(stockFilePath) Then
+            File.WriteAllText(stockFilePath, "Date,Time,RawMaterial,Unit,Quantity" & Environment.NewLine)
         End If
 
-        ' Load products into ComboBox
-        LoadProducts()
-    End Sub
-
-
-    Private Sub LoadProducts()
-        txtProduct.Items.Clear()
-        Dim lines As String() = File.ReadAllLines(csvFilePath)
-        For i As Integer = 1 To lines.Length - 1
-            Dim cols() As String = lines(i).Split(","c)
-            If cols.Length >= 3 Then
-                If Not txtProduct.Items.Contains(cols(0).Trim()) Then
-                    txtProduct.Items.Add(cols(0).Trim())
+        ' Load config
+        If File.Exists(configPath) Then
+            rawMaterialUnitMap.Clear()
+            For Each line In File.ReadAllLines(configPath).Skip(1)
+                Dim cols = line.Split(","c)
+                If cols.Length >= 2 AndAlso Not rawMaterialUnitMap.ContainsKey(cols(0).Trim()) Then
+                    rawMaterialUnitMap.Add(cols(0).Trim(), cols(1).Trim())
                 End If
-            End If
-        Next
-    End Sub
+            Next
+        End If
 
+        ' Fill dropdown
+        txtRawMaterial.Items.Clear()
+        For Each rm In rawMaterialUnitMap.Keys
+            txtRawMaterial.Items.Add(rm)
+        Next
+
+        ' Show dropdown on hover
+        AddHandler txtRawMaterial.MouseEnter, Sub() txtRawMaterial.DroppedDown = True
+        AddHandler txtRawMaterial.MouseLeave, Sub() txtRawMaterial.DroppedDown = False
+
+        ' Map unit when raw material is selected
+        AddHandler txtRawMaterial.SelectedIndexChanged, Sub()
+                                                            Dim selectedRM As String = txtRawMaterial.Text.Trim()
+                                                            If rawMaterialUnitMap.ContainsKey(selectedRM) Then
+                                                                lblUnit.Text = rawMaterialUnitMap(selectedRM)
+                                                            Else
+                                                                lblUnit.Text = ""
+                                                            End If
+                                                            numQuantity.Focus()
+                                                        End Sub
+    End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        Dim product As String = txtProduct.Text.Trim()
-        Dim unit As String = txtUnit.Text.Trim()
+        Dim rawMaterial As String = txtRawMaterial.Text.Trim()
+        Dim unit As String = lblUnit.Text.Trim()
         Dim quantity As Decimal
 
-        ' Validate inputs
-        If String.IsNullOrEmpty(product) Then
-            MessageBox.Show("Please select or enter a product.")
+        ' Validate
+        Dim missingFields As New List(Of String)
+        If String.IsNullOrEmpty(rawMaterial) Then missingFields.Add("Raw Material")
+        If String.IsNullOrEmpty(unit) Then missingFields.Add("Unit")
+        If Not Decimal.TryParse(numQuantity.Text.Trim(), quantity) OrElse quantity <= 0 Then missingFields.Add("Quantity")
+
+        If missingFields.Count > 0 Then
+            MessageBox.Show("Please fill the mandatory fields: " & String.Join(", ", missingFields), "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        If String.IsNullOrEmpty(unit) Then
-            MessageBox.Show("Please enter unit.")
-            Return
-        End If
+        ' Prepare new line in specified format
+        Dim newLine As String = $"{DateTime.Now:dd-MM-yyyy},{DateTime.Now:HH:mm:ss},{rawMaterial},{unit},{quantity}"
 
-        If Not Decimal.TryParse(numQuantity.Text.Trim(), quantity) OrElse quantity <= 0 Then
-            MessageBox.Show("Please enter a valid quantity.")
-            Return
-        End If
+        ' Append to CSV
+        File.AppendAllLines(stockFilePath, {newLine})
 
-        ' Load CSV
-        Dim lines As List(Of String) = File.ReadAllLines(csvFilePath).ToList()
-        Dim updated As Boolean = False
-
-        ' Update quantity if product exists
-        For i As Integer = 1 To lines.Count - 1
-            Dim cols() As String = lines(i).Split(","c)
-            If cols.Length >= 3 AndAlso cols(0).Trim().Equals(product, StringComparison.OrdinalIgnoreCase) Then
-                Dim existingQty As Decimal = 0
-                Decimal.TryParse(cols(2), existingQty)
-                Dim newQty As Decimal = existingQty + quantity
-                lines(i) = $"{cols(0)},{cols(1)},{newQty}"
-                updated = True
-                Exit For
-            End If
-        Next
-
-        ' If product not found, add new row
-        If Not updated Then
-            lines.Add($"{product},{unit},{quantity}")
-        End If
-
-        ' Save CSV
-        File.WriteAllLines(csvFilePath, lines)
-
-        ' Refresh main form by invoking the Raw Materials button click
+        ' Refresh main form
         If Application.OpenForms.OfType(Of FrmMain)().Any() Then
             Dim mainForm As FrmMain = Application.OpenForms.OfType(Of FrmMain)().First()
-            mainForm.Invoke(Sub()
-                                mainForm.Button4.PerformClick()
-                            End Sub)
+            mainForm.Invoke(Sub() mainForm.Button4.PerformClick())
         End If
 
         MessageBox.Show("Raw materials added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)

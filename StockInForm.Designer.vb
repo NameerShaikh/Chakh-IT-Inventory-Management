@@ -39,108 +39,137 @@ Partial Class StockInForm
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtUnit = New System.Windows.Forms.ComboBox()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'txtEntryDate
         '
-        Me.txtEntryDate.Location = New System.Drawing.Point(515, 89)
+        Me.txtEntryDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtEntryDate.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtEntryDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtEntryDate.Location = New System.Drawing.Point(227, 57)
         Me.txtEntryDate.Name = "txtEntryDate"
-        Me.txtEntryDate.Size = New System.Drawing.Size(366, 22)
+        Me.txtEntryDate.Size = New System.Drawing.Size(368, 30)
         Me.txtEntryDate.TabIndex = 0
         '
         'txtEntryTime
         '
-        Me.txtEntryTime.Location = New System.Drawing.Point(524, 157)
+        Me.txtEntryTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtEntryTime.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtEntryTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtEntryTime.Location = New System.Drawing.Point(227, 3)
         Me.txtEntryTime.Name = "txtEntryTime"
-        Me.txtEntryTime.Size = New System.Drawing.Size(356, 22)
+        Me.txtEntryTime.Size = New System.Drawing.Size(368, 30)
         Me.txtEntryTime.TabIndex = 1
         '
         'txtProduct
         '
+        Me.txtProduct.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtProduct.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtProduct.FormattingEnabled = True
-        Me.txtProduct.Location = New System.Drawing.Point(527, 248)
+        Me.txtProduct.Location = New System.Drawing.Point(227, 111)
         Me.txtProduct.Name = "txtProduct"
-        Me.txtProduct.Size = New System.Drawing.Size(352, 24)
+        Me.txtProduct.Size = New System.Drawing.Size(368, 33)
         Me.txtProduct.TabIndex = 2
         '
         'numQuantity
         '
-        Me.numQuantity.Location = New System.Drawing.Point(527, 392)
+        Me.numQuantity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.numQuantity.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.numQuantity.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.numQuantity.Location = New System.Drawing.Point(227, 219)
         Me.numQuantity.Name = "numQuantity"
-        Me.numQuantity.Size = New System.Drawing.Size(386, 22)
+        Me.numQuantity.Size = New System.Drawing.Size(368, 30)
         Me.numQuantity.TabIndex = 3
         '
         'txtBatchNo
         '
-        Me.txtBatchNo.Location = New System.Drawing.Point(516, 434)
+        Me.txtBatchNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtBatchNo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtBatchNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtBatchNo.Location = New System.Drawing.Point(227, 273)
         Me.txtBatchNo.Name = "txtBatchNo"
-        Me.txtBatchNo.Size = New System.Drawing.Size(419, 22)
+        Me.txtBatchNo.Size = New System.Drawing.Size(368, 30)
         Me.txtBatchNo.TabIndex = 4
         '
         'txtPurchasePrice
         '
-        Me.txtPurchasePrice.Location = New System.Drawing.Point(537, 476)
+        Me.txtPurchasePrice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtPurchasePrice.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtPurchasePrice.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPurchasePrice.Location = New System.Drawing.Point(227, 327)
         Me.txtPurchasePrice.Name = "txtPurchasePrice"
-        Me.txtPurchasePrice.Size = New System.Drawing.Size(423, 22)
+        Me.txtPurchasePrice.Size = New System.Drawing.Size(368, 30)
         Me.txtPurchasePrice.TabIndex = 5
         '
         'Label1
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(174, 103)
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(3, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(69, 16)
+        Me.Label1.Size = New System.Drawing.Size(218, 54)
         Me.Label1.TabIndex = 6
         Me.Label1.Text = "Entry Date"
         '
         'Label2
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(186, 160)
+        Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(3, 54)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(71, 16)
+        Me.Label2.Size = New System.Drawing.Size(218, 54)
         Me.Label2.TabIndex = 7
         Me.Label2.Text = "Entry Time"
         '
         'Label3
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(186, 251)
+        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(3, 108)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(53, 16)
+        Me.Label3.Size = New System.Drawing.Size(218, 54)
         Me.Label3.TabIndex = 8
-        Me.Label3.Text = "Product"
+        Me.Label3.Text = "Product*"
         '
         'Label4
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(188, 392)
+        Me.Label4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(3, 216)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(55, 16)
+        Me.Label4.Size = New System.Drawing.Size(218, 54)
         Me.Label4.TabIndex = 9
-        Me.Label4.Text = "Quantity"
+        Me.Label4.Text = "Quantity*"
         '
         'Label5
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(214, 437)
+        Me.Label5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(3, 270)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(65, 16)
+        Me.Label5.Size = New System.Drawing.Size(218, 54)
         Me.Label5.TabIndex = 10
         Me.Label5.Text = "Batch No."
         '
         'Label6
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(199, 482)
+        Me.Label6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(3, 324)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(98, 16)
+        Me.Label6.Size = New System.Drawing.Size(218, 54)
         Me.Label6.TabIndex = 11
         Me.Label6.Text = "Purchase Price"
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(400, 590)
+        Me.btnSave.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnSave.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSave.Location = New System.Drawing.Point(222, 580)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(358, 39)
         Me.btnSave.TabIndex = 12
@@ -149,62 +178,107 @@ Partial Class StockInForm
         '
         'txtPaymentMode
         '
+        Me.txtPaymentMode.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtPaymentMode.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPaymentMode.FormattingEnabled = True
-        Me.txtPaymentMode.Location = New System.Drawing.Point(441, 518)
+        Me.txtPaymentMode.Location = New System.Drawing.Point(227, 381)
         Me.txtPaymentMode.Name = "txtPaymentMode"
-        Me.txtPaymentMode.Size = New System.Drawing.Size(493, 24)
+        Me.txtPaymentMode.Size = New System.Drawing.Size(368, 33)
         Me.txtPaymentMode.TabIndex = 14
         '
         'Label7
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(198, 512)
+        Me.Label7.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(3, 378)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(98, 16)
+        Me.Label7.Size = New System.Drawing.Size(218, 54)
         Me.Label7.TabIndex = 13
         Me.Label7.Text = "Payment Mode"
         '
         'Label8
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(184, 320)
+        Me.Label8.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(3, 162)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(30, 16)
+        Me.Label8.Size = New System.Drawing.Size(218, 54)
         Me.Label8.TabIndex = 15
-        Me.Label8.Text = "Unit"
+        Me.Label8.Text = "Unit*"
         '
         'txtUnit
         '
+        Me.txtUnit.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtUnit.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtUnit.FormattingEnabled = True
-        Me.txtUnit.Location = New System.Drawing.Point(538, 313)
+        Me.txtUnit.Location = New System.Drawing.Point(227, 165)
         Me.txtUnit.Name = "txtUnit"
-        Me.txtUnit.Size = New System.Drawing.Size(360, 24)
+        Me.txtUnit.Size = New System.Drawing.Size(368, 33)
         Me.txtUnit.TabIndex = 16
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.AutoSize = True
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.PeachPuff
+        Me.TableLayoutPanel1.ColumnCount = 2
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.5!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.5!))
+        Me.TableLayoutPanel1.Controls.Add(Me.Label1, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtPaymentMode, 1, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtUnit, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtBatchNo, 1, 5)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtPurchasePrice, 1, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label2, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label8, 0, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.numQuantity, 1, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label7, 0, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label3, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtProduct, 1, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label4, 0, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label5, 0, 5)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label6, 0, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtEntryDate, 1, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtEntryTime, 1, 0)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(120, 98)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.TableLayoutPanel1.RowCount = 8
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(598, 432)
+        Me.TableLayoutPanel1.TabIndex = 17
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 19.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(263, 30)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(275, 38)
+        Me.Label9.TabIndex = 18
+        Me.Label9.Text = "Stock In Window"
         '
         'StockInForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1171, 673)
-        Me.Controls.Add(Me.txtUnit)
-        Me.Controls.Add(Me.Label8)
-        Me.Controls.Add(Me.txtPaymentMode)
-        Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.txtBatchNo)
+        Me.BackColor = System.Drawing.Color.PeachPuff
+        Me.ClientSize = New System.Drawing.Size(828, 660)
+        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.btnSave)
-        Me.Controls.Add(Me.txtEntryDate)
-        Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.txtEntryTime)
-        Me.Controls.Add(Me.Label5)
-        Me.Controls.Add(Me.txtProduct)
-        Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.numQuantity)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.txtPurchasePrice)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Label1)
+        Me.MaximizeBox = False
         Me.Name = "StockInForm"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "StockInForm"
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -227,4 +301,6 @@ Partial Class StockInForm
     Friend WithEvents Label7 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents txtUnit As ComboBox
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents Label9 As Label
 End Class

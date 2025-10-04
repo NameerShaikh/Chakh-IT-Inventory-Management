@@ -22,6 +22,7 @@ Partial Class FrmMain
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.DAshboardToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StockINToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -103,7 +104,7 @@ Partial Class FrmMain
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(411, 73)
+        Me.Label2.Location = New System.Drawing.Point(691, 90)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(140, 29)
         Me.Label2.TabIndex = 0
@@ -114,26 +115,26 @@ Partial Class FrmMain
         Me.Label3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(115, 66)
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 22.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(221, 54)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(143, 36)
+        Me.Label3.Size = New System.Drawing.Size(185, 42)
         Me.Label3.TabIndex = 1
-        Me.Label3.Text = "Chakh IT"
+        Me.Label3.Text = "Chakh it !"
         '
         'PictureBox1
         '
-        Me.PictureBox1.Location = New System.Drawing.Point(21, 54)
+        Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox1.Location = New System.Drawing.Point(51, 30)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(69, 64)
+        Me.PictureBox1.Size = New System.Drawing.Size(164, 89)
         Me.PictureBox1.TabIndex = 2
         Me.PictureBox1.TabStop = False
         '
         'Panel1
         '
-        Me.Panel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel1.Controls.Add(Me.Button3)
         Me.Panel1.Controls.Add(Me.Button6)
@@ -144,17 +145,17 @@ Partial Class FrmMain
         Me.Panel1.Location = New System.Drawing.Point(21, 140)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(297, 503)
+        Me.Panel1.Size = New System.Drawing.Size(296, 503)
         Me.Panel1.TabIndex = 19
         '
         'Button3
         '
         Me.Button3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button3.Location = New System.Drawing.Point(3, 272)
+        Me.Button3.Location = New System.Drawing.Point(3, 335)
         Me.Button3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(291, 49)
+        Me.Button3.Size = New System.Drawing.Size(290, 49)
         Me.Button3.TabIndex = 25
         Me.Button3.Text = "Settings"
         Me.Button3.UseVisualStyleBackColor = True
@@ -163,10 +164,10 @@ Partial Class FrmMain
         '
         Me.Button6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button6.Location = New System.Drawing.Point(3, 219)
+        Me.Button6.Location = New System.Drawing.Point(3, 266)
         Me.Button6.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(291, 49)
+        Me.Button6.Size = New System.Drawing.Size(290, 49)
         Me.Button6.TabIndex = 24
         Me.Button6.Text = "Bills"
         Me.Button6.UseVisualStyleBackColor = True
@@ -175,10 +176,10 @@ Partial Class FrmMain
         '
         Me.Button5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button5.Location = New System.Drawing.Point(3, 166)
+        Me.Button5.Location = New System.Drawing.Point(3, 199)
         Me.Button5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(291, 49)
+        Me.Button5.Size = New System.Drawing.Size(290, 49)
         Me.Button5.TabIndex = 23
         Me.Button5.Text = "Reports"
         Me.Button5.UseVisualStyleBackColor = True
@@ -187,10 +188,10 @@ Partial Class FrmMain
         '
         Me.Button4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button4.Location = New System.Drawing.Point(3, 113)
+        Me.Button4.Location = New System.Drawing.Point(3, 137)
         Me.Button4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(291, 49)
+        Me.Button4.Size = New System.Drawing.Size(290, 49)
         Me.Button4.TabIndex = 22
         Me.Button4.Text = "Raw Materials"
         Me.Button4.UseVisualStyleBackColor = True
@@ -199,20 +200,22 @@ Partial Class FrmMain
         '
         Me.Button2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(3, 60)
+        Me.Button2.Location = New System.Drawing.Point(3, 73)
         Me.Button2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(291, 49)
+        Me.Button2.Size = New System.Drawing.Size(290, 49)
         Me.Button2.TabIndex = 20
         Me.Button2.Text = "Stock"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Button1
         '
+        Me.Button1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Button1.Location = New System.Drawing.Point(3, 7)
         Me.Button1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(291, 49)
+        Me.Button1.Size = New System.Drawing.Size(290, 49)
         Me.Button1.TabIndex = 20
         Me.Button1.Text = "Dashboard"
         Me.Button1.UseVisualStyleBackColor = True
@@ -224,17 +227,16 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.contentPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.contentPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.contentPanel.Location = New System.Drawing.Point(363, 140)
+        Me.contentPanel.Location = New System.Drawing.Point(323, 140)
         Me.contentPanel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.contentPanel.Name = "contentPanel"
-        Me.contentPanel.Size = New System.Drawing.Size(799, 421)
+        Me.contentPanel.Size = New System.Drawing.Size(835, 473)
         Me.contentPanel.TabIndex = 20
         '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ClientSize = New System.Drawing.Size(1181, 654)
         Me.Controls.Add(Me.contentPanel)
         Me.Controls.Add(Me.Panel1)

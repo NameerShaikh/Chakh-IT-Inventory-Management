@@ -1,7 +1,9 @@
-Product,Unit,Quantity
-Sticks,pcs,1000
-Tie,pcs,500
-PolyBag,pcs,200
+Raw Material,Unit,Quantity
+Sticks,pcs,1013
+Tie,pcs,498
+PolyBag,pcs,206
 Outer,pcs,100
-Master Outer,pcs,30
+Master Outer,pcs,20
 Jelly Cubes,pcs,1200
+Cubes,Kg,5
+Sticker,Pcs,3

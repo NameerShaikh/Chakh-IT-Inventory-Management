@@ -4,125 +4,214 @@ Imports Excel = Microsoft.Office.Interop.Excel
 Partial Class StockOutForm
     Inherits Form
 
-    Private productFilePath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\ProductList.csv"
+    Private availableStockPath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\AvailableStock.csv"
+    Private stockOutCsvPath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\StockOut.csv"
     Private stockOutExcelPath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\StockOut.xlsx"
+    Private configPath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\ProductConfiguration.csv"
 
     Public Sub New()
         InitializeComponent()
-    End Sub
 
-    Private Sub StockOutForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Auto-fill date and time
         txtDate.Text = DateTime.Now.ToString("dd-MM-yyyy")
         txtTime.Text = DateTime.Now.ToString("HH:mm:ss")
 
-        ' Load products
-        If File.Exists(productFilePath) Then
-            Dim lines = File.ReadAllLines(productFilePath)
+        ' Load products from AvailableStock or config
+        If File.Exists(configPath) Then
+            Dim lines = File.ReadAllLines(configPath)
             For Each line In lines.Skip(1)
                 Dim cols = line.Split(","c)
-                If cols.Length > 0 Then txtProduct.Items.Add(cols(0))
+                If cols.Length > 0 Then txtProduct.Items.Add(cols(0).Trim())
             Next
         End If
 
         ' Unit
-        txtUnit.Items.Add("Outer")
+        txtUnit.Items.Clear()
+        txtUnit.Items.AddRange(New String() {"Outer", "Master Outer"})
         txtUnit.SelectedIndex = 0
 
         ' Payment modes
         txtPaymentMode.Items.AddRange(New String() {"Cash", "Online", "Credit"})
+
+        ' Configure ComboBox hover behavior
+        ConfigureComboBoxHover(txtProduct)
+        ConfigureComboBoxHover(txtUnit)
+        ConfigureComboBoxHover(txtPaymentMode)
     End Sub
 
     Private Sub btnRemoveStock_Click(sender As Object, e As EventArgs) Handles btnRemoveStock.Click
-        Dim entryDate As String = txtDate.Text
-        Dim entryTime As String = txtTime.Text
         Dim product As String = txtProduct.Text.Trim()
+        Dim stockUnit As String = txtUnit.Text.Trim()
         Dim quantity As Integer
-        Dim unit As String = txtUnit.Text.Trim()
         Dim batchNo As String = txtBatchNo.Text.Trim()
         Dim paymentMode As String = txtPaymentMode.Text.Trim()
 
-        If String.IsNullOrEmpty(product) OrElse Not Integer.TryParse(txtQuantity.Text.Trim(), quantity) OrElse quantity <= 0 Then
-            MessageBox.Show("Please select product and enter a valid quantity.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        ' --- Mandatory field validation ---
+        Dim missing As New List(Of String)
+        If String.IsNullOrEmpty(product) Then
+            missing.Add("Product")
+            txtProduct.BackColor = Color.MistyRose
+        Else
+            txtProduct.BackColor = Color.White
+        End If
+
+        If String.IsNullOrEmpty(stockUnit) Then
+            missing.Add("Unit")
+            txtUnit.BackColor = Color.MistyRose
+        Else
+            txtUnit.BackColor = Color.White
+        End If
+
+        If Not Integer.TryParse(txtQuantity.Text.Trim(), quantity) OrElse quantity <= 0 Then
+            missing.Add("Quantity")
+            txtQuantity.BackColor = Color.MistyRose
+        Else
+            txtQuantity.BackColor = Color.White
+        End If
+
+        If missing.Count > 0 Then
+            MessageBox.Show("Please fill the mandatory fields: " & String.Join(", ", missing), "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        ' Update ProductList.csv (only Outer and Total Pcs)
-        Dim lines As List(Of String) = File.ReadAllLines(productFilePath).ToList()
-        For i As Integer = 1 To lines.Count - 1
-            Dim cols = lines(i).Split(","c)
-            If cols(0).Trim() = product Then
-                Dim pcsPerOuter As Integer = CInt(cols(2))
-                Dim outerQty As Integer = CInt(cols(3))
+        ' --- Load product config ---
+        Dim pcsPerOuter As Integer = 0
+        Dim outersPerMaster As Integer = 0
+        If File.Exists(configPath) Then
+            For Each line In File.ReadAllLines(configPath).Skip(1)
+                Dim cols = line.Split(","c)
+                If cols.Length >= 4 AndAlso cols(0).Trim().Equals(product, StringComparison.OrdinalIgnoreCase) Then
+                    Integer.TryParse(cols(2).Trim(), pcsPerOuter)
+                    Integer.TryParse(cols(3).Trim(), outersPerMaster)
+                    Exit For
+                End If
+            Next
+        End If
 
-                If outerQty < quantity Then
+        If pcsPerOuter <= 0 Then
+            MessageBox.Show("Product configuration missing or invalid (PcsPerOuter) for: " & product, "Configuration Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        ' --- Update AvailableStock CSV ---
+        If Not File.Exists(availableStockPath) Then
+            MessageBox.Show("Available stock file not found: " & availableStockPath, "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        Dim lines = File.ReadAllLines(availableStockPath).ToList()
+        Dim updated As Boolean = False
+
+        For i As Integer = 1 To lines.Count - 1
+            Dim cols = lines(i).Split(","c).ToList()
+            If cols.Count < 5 Then Continue For
+
+            If cols(0).Trim().Equals(product, StringComparison.OrdinalIgnoreCase) Then
+                Dim currentOuter As Integer = 0
+                Integer.TryParse(cols(3).Trim(), currentOuter)
+
+                ' Decrease stock
+                Dim deductQty As Integer = 0
+                If stockUnit.Equals("Outer", StringComparison.OrdinalIgnoreCase) Then
+                    deductQty = quantity
+                ElseIf stockUnit.Equals("Master Outer", StringComparison.OrdinalIgnoreCase) Then
+                    If outersPerMaster <= 0 Then
+                        MessageBox.Show("Configuration missing OutersPerMasterOuter for " & product, "Configuration Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Return
+                    End If
+                    deductQty = quantity * outersPerMaster
+                End If
+
+                If currentOuter < deductQty Then
                     MessageBox.Show("Not enough stock available!", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Return
                 End If
 
-                outerQty -= quantity
-                cols(3) = outerQty.ToString()
-                cols(4) = (outerQty * pcsPerOuter).ToString() ' Update total pcs
-
+                currentOuter -= deductQty
+                cols(3) = currentOuter.ToString()
+                cols(4) = (currentOuter * pcsPerOuter).ToString()
                 lines(i) = String.Join(",", cols)
+                updated = True
                 Exit For
             End If
         Next
-        File.WriteAllLines(productFilePath, lines)
 
-        ' Save entry to StockOut.xlsx
-        Dim sellingPrice As String = txtSellingPrice.Text.Trim()
+        If updated Then
+            File.WriteAllLines(availableStockPath, lines)
 
-        ' ... stock removal logic remains the same ...
+            ' --- Append to StockOut CSV ---
+            Dim lineCsv As String = $"{txtDate.Text},{txtTime.Text},{product},{stockUnit},{quantity},{batchNo},{txtSellingPrice.Text.Trim()},{paymentMode}"
+            File.AppendAllText(stockOutCsvPath, lineCsv & Environment.NewLine)
 
-        ' Save entry to StockOut.xlsx
-        Dim app As New Excel.Application
-        Dim wb As Excel.Workbook
-        Dim ws As Excel.Worksheet
+            ' --- Append to StockOut Excel ---
+            Try
+                Dim app As New Excel.Application
+                Dim wb As Excel.Workbook
+                Dim ws As Excel.Worksheet
 
-        If File.Exists(stockOutExcelPath) Then
-            wb = app.Workbooks.Open(stockOutExcelPath)
-            ws = wb.Sheets(1)
+                If File.Exists(stockOutExcelPath) Then
+                    wb = app.Workbooks.Open(stockOutExcelPath)
+                    ws = wb.Sheets(1)
+                Else
+                    wb = app.Workbooks.Add()
+                    ws = wb.Sheets(1)
+                    ws.Cells(1, 1).Value = "Date"
+                    ws.Cells(1, 2).Value = "Time"
+                    ws.Cells(1, 3).Value = "Product"
+                    ws.Cells(1, 4).Value = "Unit"
+                    ws.Cells(1, 5).Value = "Quantity"
+                    ws.Cells(1, 6).Value = "BatchNo"
+                    ws.Cells(1, 7).Value = "SellingPrice"
+                    ws.Cells(1, 8).Value = "PaymentMode"
+                    wb.SaveAs(stockOutExcelPath)
+                End If
+
+                Dim lastRow As Integer = ws.Cells(ws.Rows.Count, 1).End(Excel.XlDirection.xlUp).Row + 1
+                ws.Cells(lastRow, 1).Value = txtDate.Text
+                ws.Cells(lastRow, 2).Value = txtTime.Text
+                ws.Cells(lastRow, 3).Value = product
+                ws.Cells(lastRow, 4).Value = stockUnit
+                ws.Cells(lastRow, 5).Value = quantity
+                ws.Cells(lastRow, 6).Value = batchNo
+                ws.Cells(lastRow, 7).Value = txtSellingPrice.Text.Trim()
+                ws.Cells(lastRow, 8).Value = paymentMode
+                wb.Save()
+                wb.Close()
+                app.Quit()
+            Catch ex As Exception
+                MessageBox.Show("Warning: could not write to StockOut Excel file. " & ex.Message, "Excel Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            End Try
+
+            MessageBox.Show("Stock removed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ' Refresh main form stock display
+            If Application.OpenForms.OfType(Of FrmMain)().Any() Then
+                Dim mainForm As FrmMain = Application.OpenForms.OfType(Of FrmMain)().First()
+                mainForm.Invoke(Sub()
+                                    mainForm.Button2.PerformClick() ' Stock button
+                                End Sub)
+            End If
+
+            Me.Close()
         Else
-            wb = app.Workbooks.Add()
-            ws = wb.Sheets(1)
-            ws.Cells(1, 1).Value = "Date"
-            ws.Cells(1, 2).Value = "Time"
-            ws.Cells(1, 3).Value = "Product"
-            ws.Cells(1, 4).Value = "Unit"
-            ws.Cells(1, 5).Value = "Quantity"
-            ws.Cells(1, 6).Value = "BatchNo"
-            ws.Cells(1, 7).Value = "SellingPrice"
-            ws.Cells(1, 8).Value = "PaymentMode"
-            wb.SaveAs(stockOutExcelPath)
+            MessageBox.Show("Product not found in AvailableStock file: " & product, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
+    End Sub
 
-        Dim lastRow As Integer = ws.Cells(ws.Rows.Count, 1).End(Excel.XlDirection.xlUp).Row + 1
-        ws.Cells(lastRow, 1).Value = entryDate
-        ws.Cells(lastRow, 2).Value = entryTime
-        ws.Cells(lastRow, 3).Value = product
-        ws.Cells(lastRow, 4).Value = unit
-        ws.Cells(lastRow, 5).Value = quantity
-        ws.Cells(lastRow, 6).Value = batchNo
-        ws.Cells(lastRow, 7).Value = sellingPrice
-        ws.Cells(lastRow, 8).Value = paymentMode
+    ' Configure ComboBox hover & selection
+    Private Sub ConfigureComboBoxHover(cmb As ComboBox)
+        cmb.DropDownStyle = ComboBoxStyle.DropDownList
 
-        wb.Save()
-        wb.Close()
-        app.Quit()
-
-
-        ' Confirmation
-        MessageBox.Show("Stock removed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-        ' Refresh main form stock display by performing the Stock button click
-        If Application.OpenForms.OfType(Of FrmMain)().Any() Then
-            Dim mainForm As FrmMain = Application.OpenForms.OfType(Of FrmMain)().First()
-            mainForm.Invoke(Sub()
-                                mainForm.Button2.PerformClick() ' Button2 = Stock button
-                            End Sub)
-        End If
-
-        Me.Close()
+        AddHandler cmb.MouseEnter, Sub()
+                                       If cmb.Items.Count > 0 Then cmb.DroppedDown = True
+                                   End Sub
+        AddHandler cmb.MouseLeave, Sub()
+                                       cmb.DroppedDown = False
+                                       cmb.FindForm().Focus()
+                                   End Sub
+        AddHandler cmb.SelectedIndexChanged, Sub()
+                                                 cmb.DroppedDown = False
+                                                 cmb.FindForm().SelectNextControl(cmb, True, True, True, True)
+                                             End Sub
     End Sub
 End Class

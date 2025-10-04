@@ -4,11 +4,16 @@ Entry Date,Entry Time,Product,Stock Unit,Quantity,Total Pieces,Batch No.,Purchas
 30-09-25,5:52:59,Mango Cubes,Outer,20,1000,54,5,Credit
 30-09-25,5:57:46,Jalebi Jelly,Master Outer,10,13200,7546,5,Online
 30-09-25,5:59:32,Jalebi Jelly,Outer,5,325,456,2,Credit
-30-09-2025,06:03:25,Mango Cubes,Master Outer,6,4800,456897,3,Cash
-30-09-2025,15:32:49,Rangeen Pop,Outer,10,500,456,2,Credit
-30-09-2025,16:09:16,Rangeen Pop,Outer,10,500,456,5,Online,50
-30-09-2025,16:26:13,Rangeen Pop,Outer,10,500,75,2,Online
-30-09-2025,18:21:48,Rangeen Pop,Outer,10,50,1000,456,5,Online
-30-09-2025,18:23:14,Jalebi Jelly,Outer,5,60,900,654,2,Credit
-30-09-2025,18:34:16,Jalebi Jelly,Outer,20,50,1250,46,3,Online
-30-09-2025,18:37:39,Jalebi Jelly,Outer,5,50,1250,sc,3,Credit
+30-09-25,6:03:25,Mango Cubes,Master Outer,6,4800,456897,3,Cash
+30-09-25,15:32:49,Rangeen Pop,Outer,10,500,456,2,Credit
+30-09-25,16:09:16,Rangeen Pop,Outer,10,500,456,5,Online
+30-09-25,16:26:13,Rangeen Pop,Outer,10,500,75,2,Online
+30-09-25,18:21:48,Rangeen Pop,Outer,10,50,1000,5,Online
+30-09-25,18:23:14,Jalebi Jelly,Outer,5,60,900,2,Credit
+30-09-25,18:34:16,Jalebi Jelly,Outer,20,50,1250,3,Online
+30-09-25,18:37:39,Jalebi Jelly,Outer,5,50,1250,3,Credit
+01-10-25,11:58:50,Jalebi Jelly,Outer,5,50,1250,5,Online
+01-10-25,18:50:47,Rangeen Pop,Outer,5,50,1250,90,Online
+02-10-25,4:29:59,Rangeen Pop Small,Outer,16,50,2050,5,Online
+02-10-25,4:31:09,Rangeen Pop Small,Master Outer,1,50,2450,5,Online
+02-10-25,5:20:09,Rangeen Pop Small,Outer,1,50,2100,,
