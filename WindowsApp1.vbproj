@@ -161,6 +161,12 @@
     <Compile Include="Bills.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="BillsTab.Designer.vb">
+      <DependentUpon>BillsTab.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BillsTab.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DashboardForm.Designer.vb">
       <DependentUpon>DashboardForm.vb</DependentUpon>
     </Compile>
@@ -241,6 +247,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Bills.resx">
       <DependentUpon>Bills.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BillsTab.resx">
+      <DependentUpon>BillsTab.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DashboardForm.resx">
       <DependentUpon>DashboardForm.vb</DependentUpon>

@@ -36,7 +36,7 @@ Public Class FrmMain
     Private reportsForm As New Reports()
 
     ' Create  BillsForm instance
-    Private billsForm As New Bills()
+    Private billsForm As New BillsTab()
 
 
 
@@ -244,6 +244,7 @@ Public Class FrmMain
         ResizeButtonFont(Button4)
         ResizeButtonFont(Button5)
         ResizeButtonFont(Button6)
+        ResizeButtonFont(Button7)
 
 
 
@@ -295,7 +296,7 @@ Public Class FrmMain
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        ShowPanelInContentPanel(billsForm.billsPanel)
+        LoadFormInPanel(billsForm)
         Label2.Text = "Bills"
     End Sub
 
