@@ -146,7 +146,7 @@ Partial Class Bills
         'txtTotalItems
         '
         Me.txtTotalItems.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtTotalItems.Location = New System.Drawing.Point(111, 16)
+        Me.txtTotalItems.Location = New System.Drawing.Point(124, 18)
         Me.txtTotalItems.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtTotalItems.Name = "txtTotalItems"
         Me.txtTotalItems.ReadOnly = True
@@ -157,7 +157,7 @@ Partial Class Bills
         '
         Me.lblGrandTotal.AutoSize = True
         Me.lblGrandTotal.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.lblGrandTotal.Location = New System.Drawing.Point(231, 18)
+        Me.lblGrandTotal.Location = New System.Drawing.Point(351, 18)
         Me.lblGrandTotal.Name = "lblGrandTotal"
         Me.lblGrandTotal.Size = New System.Drawing.Size(95, 20)
         Me.lblGrandTotal.TabIndex = 12
@@ -166,7 +166,7 @@ Partial Class Bills
         'txtGrandTotal
         '
         Me.txtGrandTotal.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtGrandTotal.Location = New System.Drawing.Point(331, 16)
+        Me.txtGrandTotal.Location = New System.Drawing.Point(464, 15)
         Me.txtGrandTotal.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtGrandTotal.Name = "txtGrandTotal"
         Me.txtGrandTotal.ReadOnly = True
@@ -224,7 +224,7 @@ Partial Class Bills
         'txtPartialNow
         '
         Me.txtPartialNow.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtPartialNow.Location = New System.Drawing.Point(761, 48)
+        Me.txtPartialNow.Location = New System.Drawing.Point(759, 47)
         Me.txtPartialNow.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtPartialNow.Name = "txtPartialNow"
         Me.txtPartialNow.Size = New System.Drawing.Size(120, 27)
@@ -254,7 +254,7 @@ Partial Class Bills
         '
         Me.lblContact.AutoSize = True
         Me.lblContact.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.lblContact.Location = New System.Drawing.Point(291, 82)
+        Me.lblContact.Location = New System.Drawing.Point(351, 93)
         Me.lblContact.Name = "lblContact"
         Me.lblContact.Size = New System.Drawing.Size(67, 20)
         Me.lblContact.TabIndex = 2
@@ -263,7 +263,7 @@ Partial Class Bills
         'txtContact
         '
         Me.txtContact.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtContact.Location = New System.Drawing.Point(361, 80)
+        Me.txtContact.Location = New System.Drawing.Point(431, 86)
         Me.txtContact.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtContact.Name = "txtContact"
         Me.txtContact.Size = New System.Drawing.Size(200, 27)
@@ -282,11 +282,11 @@ Partial Class Bills
         '
         'btnPartialEnter
         '
-        Me.btnPartialEnter.Location = New System.Drawing.Point(910, 58)
+        Me.btnPartialEnter.Location = New System.Drawing.Point(665, 82)
         Me.btnPartialEnter.Name = "btnPartialEnter"
-        Me.btnPartialEnter.Size = New System.Drawing.Size(131, 22)
+        Me.btnPartialEnter.Size = New System.Drawing.Size(214, 37)
         Me.btnPartialEnter.TabIndex = 22
-        Me.btnPartialEnter.Text = "Button1"
+        Me.btnPartialEnter.Text = "Calculate Outstanding Amount"
         Me.btnPartialEnter.UseVisualStyleBackColor = True
         '
         'Panel1
