@@ -1,2 +1,6 @@
 Date,Time,RawMaterial,Unit,Quantity
 02-10-25,6:43:08,Polybag,Kg,5
+08-10-2025,19:59:34,test_Raw,grams,1000
+08-10-2025,20:03:30,test_Raw,grams,50
+09-10-2025,04:28:14,test_Raw,grams,1000
+09-10-2025,04:32:42,Test_005,test_unit,500

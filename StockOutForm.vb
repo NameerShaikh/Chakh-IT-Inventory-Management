@@ -54,21 +54,18 @@ Partial Class StockOutForm
         Else
             txtProduct.BackColor = Color.White
         End If
-
         If String.IsNullOrEmpty(stockUnit) Then
             missing.Add("Unit")
             txtUnit.BackColor = Color.MistyRose
         Else
             txtUnit.BackColor = Color.White
         End If
-
         If Not Integer.TryParse(txtQuantity.Text.Trim(), quantity) OrElse quantity <= 0 Then
             missing.Add("Quantity")
             txtQuantity.BackColor = Color.MistyRose
         Else
             txtQuantity.BackColor = Color.White
         End If
-
         If missing.Count > 0 Then
             MessageBox.Show("Please fill the mandatory fields: " & String.Join(", ", missing), "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
@@ -87,13 +84,12 @@ Partial Class StockOutForm
                 End If
             Next
         End If
-
         If pcsPerOuter <= 0 Then
             MessageBox.Show("Product configuration missing or invalid (PcsPerOuter) for: " & product, "Configuration Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
-        ' --- Update AvailableStock CSV ---
+        ' --- Load AvailableStock ---
         If Not File.Exists(availableStockPath) Then
             MessageBox.Show("Available stock file not found: " & availableStockPath, "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
@@ -101,16 +97,19 @@ Partial Class StockOutForm
 
         Dim lines = File.ReadAllLines(availableStockPath).ToList()
         Dim updated As Boolean = False
+        Dim productFound As Boolean = False
 
+        ' --- Find product in AvailableStock ---
         For i As Integer = 1 To lines.Count - 1
             Dim cols = lines(i).Split(","c).ToList()
             If cols.Count < 5 Then Continue For
 
             If cols(0).Trim().Equals(product, StringComparison.OrdinalIgnoreCase) Then
+                productFound = True
                 Dim currentOuter As Integer = 0
                 Integer.TryParse(cols(3).Trim(), currentOuter)
 
-                ' Decrease stock
+                ' Deduct quantity
                 Dim deductQty As Integer = 0
                 If stockUnit.Equals("Outer", StringComparison.OrdinalIgnoreCase) Then
                     deductQty = quantity
@@ -136,6 +135,13 @@ Partial Class StockOutForm
             End If
         Next
 
+        ' --- If product not found in stock ---
+        If Not productFound Then
+            MessageBox.Show("Product not available in stock yet. Please add stock first.", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        ' --- Write back AvailableStock ---
         If updated Then
             File.WriteAllLines(availableStockPath, lines)
 
@@ -155,14 +161,10 @@ Partial Class StockOutForm
                 Else
                     wb = app.Workbooks.Add()
                     ws = wb.Sheets(1)
-                    ws.Cells(1, 1).Value = "Date"
-                    ws.Cells(1, 2).Value = "Time"
-                    ws.Cells(1, 3).Value = "Product"
-                    ws.Cells(1, 4).Value = "Unit"
-                    ws.Cells(1, 5).Value = "Quantity"
-                    ws.Cells(1, 6).Value = "BatchNo"
-                    ws.Cells(1, 7).Value = "SellingPrice"
-                    ws.Cells(1, 8).Value = "PaymentMode"
+                    Dim headers = {"Date", "Time", "Product", "Unit", "Quantity", "BatchNo", "SellingPrice", "PaymentMode"}
+                    For h As Integer = 0 To headers.Length - 1
+                        ws.Cells(1, h + 1).Value = headers(h)
+                    Next
                     wb.SaveAs(stockOutExcelPath)
                 End If
 
@@ -193,8 +195,6 @@ Partial Class StockOutForm
             End If
 
             Me.Close()
-        Else
-            MessageBox.Show("Product not found in AvailableStock file: " & product, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 
@@ -213,5 +213,9 @@ Partial Class StockOutForm
                                                  cmb.DroppedDown = False
                                                  cmb.FindForm().SelectNextControl(cmb, True, True, True, True)
                                              End Sub
+    End Sub
+
+    Private Sub StockOutForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
     End Sub
 End Class

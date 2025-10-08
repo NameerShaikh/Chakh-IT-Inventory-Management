@@ -2,7 +2,8 @@
 
 Partial Class RawMaterialsInForm
 
-    Private stockFilePath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\RawMaterialsIn.csv"
+    Private stockInFilePath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\RawMaterialsIn.csv"
+    Private availableStockPath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\RawMaterials.csv"
     Private configPath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\RawMaterialsConfig.csv"
 
     ' Dictionary to map raw material -> unit
@@ -16,9 +17,13 @@ Partial Class RawMaterialsInForm
         txtDate.Text = DateTime.Now.ToString("dd-MM-yyyy")
         txtTime.Text = DateTime.Now.ToString("HH:mm:ss")
 
-        ' Ensure CSV exists
-        If Not File.Exists(stockFilePath) Then
-            File.WriteAllText(stockFilePath, "Date,Time,RawMaterial,Unit,Quantity" & Environment.NewLine)
+        ' Ensure CSVs exist
+        If Not File.Exists(stockInFilePath) Then
+            File.WriteAllText(stockInFilePath, "Date,Time,RawMaterial,Unit,Quantity" & Environment.NewLine)
+        End If
+
+        If Not File.Exists(availableStockPath) Then
+            File.WriteAllText(availableStockPath, "Raw Material,Unit,Quantity" & Environment.NewLine)
         End If
 
         ' Load config
@@ -59,7 +64,7 @@ Partial Class RawMaterialsInForm
         Dim unit As String = lblUnit.Text.Trim()
         Dim quantity As Decimal
 
-        ' Validate
+        ' Validate mandatory fields
         Dim missingFields As New List(Of String)
         If String.IsNullOrEmpty(rawMaterial) Then missingFields.Add("Raw Material")
         If String.IsNullOrEmpty(unit) Then missingFields.Add("Unit")
@@ -70,13 +75,33 @@ Partial Class RawMaterialsInForm
             Return
         End If
 
-        ' Prepare new line in specified format
-        Dim newLine As String = $"{DateTime.Now:dd-MM-yyyy},{DateTime.Now:HH:mm:ss},{rawMaterial},{unit},{quantity}"
+        ' ---------- 1️⃣ Append to RawMaterialsIn.csv (History) ----------
+        Dim newLine As String = $"{txtDate.Text},{txtTime.Text},{rawMaterial},{unit},{quantity}"
+        File.AppendAllLines(stockInFilePath, {newLine})
 
-        ' Append to CSV
-        File.AppendAllLines(stockFilePath, {newLine})
+        ' ---------- 2️⃣ Update RawMaterials.csv (Available Stock) ----------
+        Dim stockLines As List(Of String) = File.ReadAllLines(availableStockPath).ToList()
+        Dim updated As Boolean = False
 
-        ' Refresh main form
+        For i As Integer = 1 To stockLines.Count - 1
+            Dim cols = stockLines(i).Split(","c)
+            If cols.Length >= 3 AndAlso cols(0).Trim().Equals(rawMaterial, StringComparison.OrdinalIgnoreCase) Then
+                Dim currentQty As Decimal = 0
+                Decimal.TryParse(cols(2).Trim(), currentQty)
+                currentQty += quantity
+                stockLines(i) = $"{cols(0).Trim()},{cols(1).Trim()},{currentQty}"
+                updated = True
+                Exit For
+            End If
+        Next
+
+        If Not updated Then
+            stockLines.Add($"{rawMaterial},{unit},{quantity}")
+        End If
+
+        File.WriteAllLines(availableStockPath, stockLines)
+
+        ' ---------- 3️⃣ Refresh main form ----------
         If Application.OpenForms.OfType(Of FrmMain)().Any() Then
             Dim mainForm As FrmMain = Application.OpenForms.OfType(Of FrmMain)().First()
             mainForm.Invoke(Sub() mainForm.Button4.PerformClick())

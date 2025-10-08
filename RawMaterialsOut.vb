@@ -4,7 +4,7 @@ Partial Class RawMaterialsOutForm
     Inherits Form
 
     Private stockFilePath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\RawMaterials.csv"
-    Private configFilePath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\RawMaterialsConfiguration.csv"
+    Private configFilePath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\RawMaterialsConfig.csv"
     Private historyFilePath As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder\RawMaterialsOut.csv"
 
     Private Sub RawMaterialsOutForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load

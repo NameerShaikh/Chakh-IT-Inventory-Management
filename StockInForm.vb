@@ -98,7 +98,7 @@ Partial Class StockInForm
         ' --- Gather inputs ---
         Dim product As String = txtProduct.Text.Trim()
         Dim stockUnit As String = txtUnit.Text.Trim()
-        Dim quantity As Integer = 0        ' <-- DECLARED here
+        Dim quantity As Integer = 0
         Dim batchNo As String = txtBatchNo.Text.Trim()
         Dim purchasePrice As String = txtPurchasePrice.Text.Trim()
         Dim paymentMode As String = txtPaymentMode.Text.Trim()
@@ -108,7 +108,7 @@ Partial Class StockInForm
         txtUnit.BackColor = Color.White
         numQuantity.BackColor = Color.White
 
-        ' --- Validation: mandatory fields ---
+        ' --- Validation ---
         Dim missing As New List(Of String)
         If String.IsNullOrEmpty(product) Then
             missing.Add("Product")
@@ -122,13 +122,12 @@ Partial Class StockInForm
             missing.Add("Quantity")
             numQuantity.BackColor = Color.MistyRose
         End If
-
         If missing.Count > 0 Then
             MessageBox.Show("Please fill the mandatory fields: " & String.Join(", ", missing), "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        ' --- Load product config (pcsPerOuter and outersPerMasterOuter) ---
+        ' --- Load product configuration ---
         Dim pcsPerOuter As Integer = 0
         Dim outersPerMaster As Integer = 0
         If File.Exists(configPath) Then
@@ -141,50 +140,43 @@ Partial Class StockInForm
                 End If
             Next
         End If
-
         If pcsPerOuter <= 0 Then
             MessageBox.Show("Product configuration missing or invalid (PcsPerOuter) for: " & product, "Configuration Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
-        ' --- Load AvailableStock CSV and update counts ---
-        If Not File.Exists(availableStockPath) Then
-            MessageBox.Show("Available stock file not found: " & availableStockPath, "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return
+        ' --- Load AvailableStock ---
+        Dim lines As New List(Of String)
+        If File.Exists(availableStockPath) Then
+            lines = File.ReadAllLines(availableStockPath).ToList()
+        Else
+            ' Create header if file doesn't exist
+            lines.Add("Product,MRP,PcsPerOuter,Outer,TotalPcs")
+            File.WriteAllLines(availableStockPath, lines)
         End If
 
-        Dim lines = File.ReadAllLines(availableStockPath).ToList()
         Dim updated As Boolean = False
+        Dim productFound As Boolean = False
 
+        ' --- Try to find product in AvailableStock ---
         For i As Integer = 1 To lines.Count - 1
             Dim cols = lines(i).Split(","c).ToList()
-            If cols.Count < 5 Then
-                ' ensure row has enough columns (product, mrp, pcsPerOuter, outer, totalPcs) - if not skip
-                Continue For
-            End If
-
             If cols(0).Trim().Equals(product, StringComparison.OrdinalIgnoreCase) Then
+                productFound = True
                 Dim currentOuter As Integer = 0
-                Integer.TryParse(cols(3).Trim(), currentOuter) ' outer column index 3
+                Integer.TryParse(cols(3).Trim(), currentOuter)
 
                 If stockUnit.Equals("Outer", StringComparison.OrdinalIgnoreCase) Then
                     currentOuter += quantity
                 ElseIf stockUnit.Equals("Master Outer", StringComparison.OrdinalIgnoreCase) Then
-                    If outersPerMaster <= 0 Then
-                        MessageBox.Show("Configuration missing OutersPerMasterOuter for " & product, "Configuration Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        Return
-                    End If
-                    currentOuter += (quantity * outersPerMaster)
+                    currentOuter += quantity * outersPerMaster
                 End If
 
-                ' Update outer and total pcs columns
                 cols(3) = currentOuter.ToString()
                 Dim totalPcs As Integer = pcsPerOuter * currentOuter
-                ' Ensure TotalPcs is at the expected index (you said you use index 4 for TotalPcs)
                 If cols.Count >= 5 Then
                     cols(4) = totalPcs.ToString()
                 Else
-                    ' if file has fewer columns, extend safely
                     While cols.Count < 5
                         cols.Add("")
                     End While
@@ -193,77 +185,77 @@ Partial Class StockInForm
 
                 lines(i) = String.Join(",", cols)
                 updated = True
-
-                ' Append to StockIn CSV
-                Dim lineCsv As String = $"{txtEntryDate.Text},{txtEntryTime.Text},{product},{stockUnit},{quantity},{pcsPerOuter},{totalPcs},{batchNo},{purchasePrice},{paymentMode}"
-                File.AppendAllText(csvFilePath, lineCsv & Environment.NewLine)
-
-                ' Append to StockIn Excel (safe create if missing)
-                Try
-                    Dim app As New Excel.Application
-                    Dim wb As Excel.Workbook
-                    Dim ws As Excel.Worksheet
-                    If File.Exists(excelFilePath) Then
-                        wb = app.Workbooks.Open(excelFilePath)
-                        ws = wb.Sheets(1)
-                    Else
-                        wb = app.Workbooks.Add()
-                        ws = wb.Sheets(1)
-                        ws.Cells(1, 1).Value = "Date"
-                        ws.Cells(1, 2).Value = "Time"
-                        ws.Cells(1, 3).Value = "Product"
-                        ws.Cells(1, 4).Value = "Unit"
-                        ws.Cells(1, 5).Value = "Quantity"
-                        ws.Cells(1, 6).Value = "PcsPerOuter"
-                        ws.Cells(1, 7).Value = "TotalPcs"
-                        ws.Cells(1, 8).Value = "BatchNo"
-                        ws.Cells(1, 9).Value = "PurchasePrice"
-                        ws.Cells(1, 10).Value = "PaymentMode"
-                        wb.SaveAs(excelFilePath)
-                    End If
-
-                    Dim lastRow As Integer = ws.Cells(ws.Rows.Count, 1).End(Excel.XlDirection.xlUp).Row + 1
-                    ws.Cells(lastRow, 1).Value = txtEntryDate.Text
-                    ws.Cells(lastRow, 2).Value = txtEntryTime.Text
-                    ws.Cells(lastRow, 3).Value = product
-                    ws.Cells(lastRow, 4).Value = stockUnit
-                    ws.Cells(lastRow, 5).Value = quantity
-                    ws.Cells(lastRow, 6).Value = pcsPerOuter
-                    ws.Cells(lastRow, 7).Value = totalPcs
-                    ws.Cells(lastRow, 8).Value = batchNo
-                    ws.Cells(lastRow, 9).Value = purchasePrice
-                    ws.Cells(lastRow, 10).Value = paymentMode
-                    wb.Save()
-                    wb.Close()
-                    app.Quit()
-                Catch ex As Exception
-                    ' If Excel interop fails, do not block — just warn
-                    MessageBox.Show("Warning: could not write to StockIn Excel file. " & ex.Message, "Excel Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                End Try
-
                 Exit For
             End If
         Next
 
-        If updated Then
-            File.WriteAllLines(availableStockPath, lines)
-
-            MessageBox.Show("Stock added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            ' Close form
-            Me.Close()
-
-            ' Refresh the available stock view by performing the Stock button click
-            If Application.OpenForms.OfType(Of FrmMain)().Any() Then
-                Dim mainForm As FrmMain = Application.OpenForms.OfType(Of FrmMain)().First()
-                mainForm.Invoke(Sub()
-                                    mainForm.Button2.PerformClick() ' Stock button
-                                End Sub)
+        ' --- If product not found, add new row ---
+        If Not productFound Then
+            Dim newOuter As Integer = 0
+            If stockUnit.Equals("Outer", StringComparison.OrdinalIgnoreCase) Then
+                newOuter = quantity
+            ElseIf stockUnit.Equals("Master Outer", StringComparison.OrdinalIgnoreCase) Then
+                newOuter = quantity * outersPerMaster
             End If
-        Else
-            MessageBox.Show("Product not found in AvailableStock file: " & product, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Dim newTotalPcs As Integer = pcsPerOuter * newOuter
+            Dim newLine As String = $"{product},0,{pcsPerOuter},{newOuter},{newTotalPcs}"
+            lines.Add(newLine)
+            updated = True
+        End If
+
+        ' --- Write back to AvailableStock ---
+        File.WriteAllLines(availableStockPath, lines)
+
+        ' --- Append to StockIn CSV ---
+        Dim stockCsv As String = $"{txtEntryDate.Text},{txtEntryTime.Text},{product},{stockUnit},{quantity},{pcsPerOuter},{pcsPerOuter * quantity},{batchNo},{purchasePrice},{paymentMode}"
+        File.AppendAllText(csvFilePath, stockCsv & Environment.NewLine)
+
+        ' --- Append to Excel ---
+        Try
+            Dim app As New Excel.Application
+            Dim wb As Excel.Workbook
+            Dim ws As Excel.Worksheet
+            If File.Exists(excelFilePath) Then
+                wb = app.Workbooks.Open(excelFilePath)
+                ws = wb.Sheets(1)
+            Else
+                wb = app.Workbooks.Add()
+                ws = wb.Sheets(1)
+                Dim headers = {"Date", "Time", "Product", "Unit", "Quantity", "PcsPerOuter", "TotalPcs", "BatchNo", "PurchasePrice", "PaymentMode"}
+                For h As Integer = 0 To headers.Length - 1
+                    ws.Cells(1, h + 1).Value = headers(h)
+                Next
+                wb.SaveAs(excelFilePath)
+            End If
+
+            Dim lastRow As Integer = ws.Cells(ws.Rows.Count, 1).End(Excel.XlDirection.xlUp).Row + 1
+            ws.Cells(lastRow, 1).Value = txtEntryDate.Text
+            ws.Cells(lastRow, 2).Value = txtEntryTime.Text
+            ws.Cells(lastRow, 3).Value = product
+            ws.Cells(lastRow, 4).Value = stockUnit
+            ws.Cells(lastRow, 5).Value = quantity
+            ws.Cells(lastRow, 6).Value = pcsPerOuter
+            ws.Cells(lastRow, 7).Value = pcsPerOuter * quantity
+            ws.Cells(lastRow, 8).Value = batchNo
+            ws.Cells(lastRow, 9).Value = purchasePrice
+            ws.Cells(lastRow, 10).Value = paymentMode
+            wb.Save()
+            wb.Close()
+            app.Quit()
+        Catch ex As Exception
+            MessageBox.Show("Warning: could not write to Excel. " & ex.Message, "Excel Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
+
+        MessageBox.Show("Stock added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Me.Close()
+
+        ' Refresh stock view in main form
+        If Application.OpenForms.OfType(Of FrmMain)().Any() Then
+            Dim mainForm As FrmMain = Application.OpenForms.OfType(Of FrmMain)().First()
+            mainForm.Invoke(Sub() mainForm.Button2.PerformClick())
         End If
     End Sub
+
 
 
 
