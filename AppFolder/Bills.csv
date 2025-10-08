@@ -2,3 +2,4 @@ BillNo,Date,Time,Customer,TotalAmount,PaymentType,AmountPaid,AmountCredit,,,,
 INV20251007173412,07-10-25,17:34:12,John Doe,45687546,Rangeen Pop Small() x 1 | Rangeen Pop Big() x 1 | Melon Pop() x 1 | Jalebi Jelly() x 1,4,35000,Complete Payment,Cash,0,0
 INV20251007180441,2025-10-07,18:04:41,Jane Smith,465798,Rangeen Pop Small (Outer) x 4 | Jalebi Jelly (Outer) x 3,7,5500,Partial Payment,Cash,4000,1500
 INV071020252123,XYZ Enterprises,1234567890,07-10-2025,21:21:37,"Rangeen Pop Small x5 (Outers) | Rangeen Pop Big x1 (MasterOuters) | Melon Pop x1 (Outers) | Jalebi Jelly x1 (MasterOuters)",8,28550.00,Partial Payment,Cash,18500,10050.00
+INV081020250145,,,08-10-2025,01:45:53,"",0,0.00,,,,

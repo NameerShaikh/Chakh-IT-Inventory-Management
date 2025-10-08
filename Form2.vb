@@ -38,6 +38,12 @@ Public Class FrmMain
     ' Create  BillsForm instance
     Private billsForm As New BillsTab()
 
+    ' Create  BillsForm instance
+    Private financesForm As New Finances()
+
+    ' Create  BillsForm instance
+    Private AdminForm As New AdminPanel()
+
 
 
     ' Helper method to show a panel in contentPanel
@@ -288,19 +294,27 @@ Public Class FrmMain
 
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        ShowPanelInContentPanel(reportsForm.reportsPanel)
         Label2.Text = "Reports"
-
-
+        ShowPanelInContentPanel(reportsForm.reportsPanel)
 
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        LoadFormInPanel(billsForm)
+
         Label2.Text = "Bills"
+        LoadFormInPanel(billsForm)
+
     End Sub
 
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Label2.Text = "Finances"
+        LoadFormInPanel(financesForm)
+
+    End Sub
+
+    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+        Label2.Text = "Admin Panel"
+        LoadFormInPanel(AdminForm)
 
     End Sub
 End Class

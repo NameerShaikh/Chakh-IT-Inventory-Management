@@ -155,6 +155,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminPanel.Designer.vb">
+      <DependentUpon>AdminPanel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Bills.Designer.vb">
       <DependentUpon>Bills.vb</DependentUpon>
     </Compile>
@@ -171,6 +177,12 @@
       <DependentUpon>DashboardForm.vb</DependentUpon>
     </Compile>
     <Compile Include="DashboardForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Finances.Designer.vb">
+      <DependentUpon>Finances.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Finances.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.vb">
@@ -200,6 +212,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ProductDialog.Designer.vb">
+      <DependentUpon>ProductDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ProductDialog.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="RawMaterials.Designer.vb">
       <DependentUpon>RawMaterials.vb</DependentUpon>
@@ -245,6 +263,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AdminPanel.resx">
+      <DependentUpon>AdminPanel.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Bills.resx">
       <DependentUpon>Bills.vb</DependentUpon>
     </EmbeddedResource>
@@ -265,6 +286,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProductDialog.resx">
+      <DependentUpon>ProductDialog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RawMaterials.resx">
       <DependentUpon>RawMaterials.vb</DependentUpon>

@@ -16,8 +16,6 @@ Public Class Bills
     Private CREDIT_FILE As String = Path.Combine(ROOT_FOLDER, "Credit.csv")
 
 
-
-
     ' Product info dictionary: ProductName -> (MRP, PcsPerOuter, OutersPerMasterOuter)
     Public Class ProductInfo
         Public Property Mrp As Decimal
@@ -33,7 +31,12 @@ Public Class Bills
     ' (ProductName, Unit) -> TotalPcs
     Private StockDict As New Dictionary(Of String, Integer) ' Product -> Outer available
 
-
+    Private Sub CenterControls()
+        ' Horizontally center Label1
+        Label1.Left = (Me.ClientSize.Width - Label1.Width) \ 2
+        ' Place btnSaveBill below Label1, centered
+        btnSaveBill.Left = (Me.ClientSize.Width - btnSaveBill.Width) \ 2
+    End Sub
 
     Private Sub Bills_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadCustomers()
@@ -42,6 +45,7 @@ Public Class Bills
         LoadStockData()
         SetupDgvBill()
         ConfigurePaymentCombos()
+        CenterControls()
     End Sub
 
 

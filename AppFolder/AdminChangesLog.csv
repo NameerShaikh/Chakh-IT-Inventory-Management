@@ -1,0 +1,22 @@
+08-Oct-25 4:34:44 AM,Add Product,,,,,chakhit@best
+08-Oct-25 4:35:05 AM,Add Product,Test1,30,50,12,chakhit@best
+08-Oct-25 4:35:54 AM,Remove Product,Test1,chakhit@best
+08-Oct-25 4:36:12 AM,Change MRP,,,chakhit@best
+08-Oct-25 4:36:20 AM,Change Pieces,,,chakhit@best
+08-Oct-25 5:11:12 PM,Add Product,,,,,chakhit@best
+08-Oct-25 6:11:27 PM,Add Product,Test001,7,50,12
+08-Oct-25 6:12:40 PM,Change Product MRP,Rangeen Pop Small -> 10
+08-Oct-25 6:13:08 PM,Remove Customer,Test2
+08-Oct-25 6:16:21 PM,Remove Product,Test001
+08-Oct-25 6:16:39 PM,Change Product MRP,Jalebi Jelly -> 100
+08-Oct-25 6:17:03 PM,Add Product,Testttt,3,50,12
+08-Oct-25 6:17:19 PM,Change Pcs per Outer,Rangeen Pop Big -> 52
+08-Oct-25 6:17:36 PM,Change Outers per Master Outer,Testttt -> 15
+08-Oct-25 6:17:53 PM,Add Customer,TestCustomer
+08-Oct-25 6:18:08 PM,Remove Customer,Test3
+08-Oct-25 6:18:25 PM,Add Raw Material,TestRaw,kg
+08-Oct-25 6:18:41 PM,Remove Raw Material,TestRaw
+08-Oct-25 6:19:00 PM,Change Password,Old:admin123, New:chakhit@best
+08-Oct-25 6:19:07 PM,Change Password,Old:admin1, New:chakhit@best
+08-Oct-25 6:19:24 PM,Change Password,Old:admin1, New:chakhit@besty
+08-Oct-25 7:08:50 PM,Add Product,Test007,6,50,12

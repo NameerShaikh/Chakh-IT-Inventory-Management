@@ -1,5 +1,7 @@
 ProductName,Mrp,PcsPerOuter,OutersPerMasterOuter
-Rangeen Pop Small,5,50,8
-Rangeen Pop Big,10,100,12
+Rangeen Pop Small,10,50,8
+Rangeen Pop Big,10,52,12
 Melon Pop,15,60,12
-Jalebi Jelly,20,60,12
+Jalebi Jelly,100,60,12
+Testttt,3,50,15
+Test007,6,50,12

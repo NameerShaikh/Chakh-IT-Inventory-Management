@@ -35,6 +35,7 @@ Partial Class FrmMain
         Me.Label3 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Button7 = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
@@ -42,7 +43,6 @@ Partial Class FrmMain
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.contentPanel = New System.Windows.Forms.Panel()
-        Me.Button7 = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -150,16 +150,28 @@ Partial Class FrmMain
         Me.Panel1.Size = New System.Drawing.Size(296, 503)
         Me.Panel1.TabIndex = 19
         '
+        'Button7
+        '
+        Me.Button7.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button7.Location = New System.Drawing.Point(6, 397)
+        Me.Button7.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button7.Name = "Button7"
+        Me.Button7.Size = New System.Drawing.Size(290, 49)
+        Me.Button7.TabIndex = 26
+        Me.Button7.Text = "Admin Panel"
+        Me.Button7.UseVisualStyleBackColor = True
+        '
         'Button3
         '
         Me.Button3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button3.Location = New System.Drawing.Point(6, 401)
+        Me.Button3.Location = New System.Drawing.Point(6, 332)
         Me.Button3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(290, 49)
         Me.Button3.TabIndex = 25
-        Me.Button3.Text = "Settings"
+        Me.Button3.Text = "Finances"
         Me.Button3.UseVisualStyleBackColor = True
         '
         'Button6
@@ -234,18 +246,6 @@ Partial Class FrmMain
         Me.contentPanel.Name = "contentPanel"
         Me.contentPanel.Size = New System.Drawing.Size(835, 473)
         Me.contentPanel.TabIndex = 20
-        '
-        'Button7
-        '
-        Me.Button7.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button7.Location = New System.Drawing.Point(3, 335)
-        Me.Button7.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(290, 49)
-        Me.Button7.TabIndex = 26
-        Me.Button7.Text = "Finances"
-        Me.Button7.UseVisualStyleBackColor = True
         '
         'FrmMain
         '
