@@ -6,6 +6,13 @@ Imports System.IO
 Public Class FrmMain
 
 
+
+    ' Root folder
+    Private ReadOnly ROOT_FOLDER As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder"
+    Private ReadOnly REMARKS_FILE As String = Path.Combine(ROOT_FOLDER, "Remarks.csv")
+
+
+
     ' Method to load any form into contentPanel
     Private Sub LoadFormInPanel(frm As Form)
         frm.TopLevel = False
@@ -256,9 +263,8 @@ Public Class FrmMain
 
 
         Label2.Text = "Dashboard"
-
-
-        ShowPanelInContentPanel(dashboard.dashboardPanel)
+        Dim dashboardForm As New DashboardForm()
+        LoadFormInPanel(dashboardForm)
 
     End Sub
 
@@ -267,7 +273,8 @@ Public Class FrmMain
 
         Label2.Text = "Dashboard"
 
-        ShowPanelInContentPanel(dashboard.dashboardPanel)
+        Dim dashboardForm As New DashboardForm()
+        LoadFormInPanel(dashboardForm)
 
     End Sub
 
@@ -329,6 +336,166 @@ Public Class FrmMain
         LoadFormInPanel(AdminForm)
 
     End Sub
+
+
+
+
+
+
+
+
+
+
+    ' -------------------------------------------------------------
+    ' MENUSTRIP CLICK HANDLERS
+    ' -------------------------------------------------------------
+
+    Private Sub DashboardToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DAshboardToolStripMenuItem.Click
+        ' Trigger Dashboard button click
+        Button1.PerformClick()
+    End Sub
+
+    Private Sub StockToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StockToolStripMenuItem.Click
+        ' Trigger Stock button click
+        Button2.PerformClick()
+    End Sub
+
+    Private Sub FinancesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FinancesToolStripMenuItem.Click
+        ' Trigger Finances button click
+        Button3.PerformClick()
+    End Sub
+
+    Private Sub RawMaterialsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RawMaterialsToolStripMenuItem.Click
+        ' Trigger Raw Materials button click
+        Button4.PerformClick()
+    End Sub
+
+    Private Sub ReportsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReportsToolStripMenuItem.Click
+        ' Trigger Reports button click
+        Button5.PerformClick()
+    End Sub
+
+    Private Sub BillsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BillsToolStripMenuItem.Click
+        ' Trigger Bills button click
+        Button6.PerformClick()
+    End Sub
+
+    Private Sub AdminPanelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AdminPanelToolStripMenuItem.Click
+        ' Trigger Admin Panel button click
+        Button7.PerformClick()
+    End Sub
+
+    ' -------------------------------------------------------------
+    ' REMARKS FUNCTIONALITY
+    ' -------------------------------------------------------------
+    Private Sub RemarksToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemarksToolStripMenuItem.Click
+        OpenRemarksForm()
+    End Sub
+
+    Private Sub OpenRemarksForm()
+        Dim remarksForm As New Form()
+        remarksForm.Text = "Add Remarks"
+        remarksForm.Size = New Size(400, 300)
+        remarksForm.StartPosition = FormStartPosition.CenterParent
+
+        Dim lblRemark As New Label() With {
+            .Text = "Enter your remark:",
+            .Location = New Point(20, 20),
+            .AutoSize = True
+        }
+
+        Dim txtRemark As New RichTextBox() With {
+            .Location = New Point(20, 50),
+            .Size = New Size(340, 150)
+        }
+
+        Dim btnSave As New Button() With {
+            .Text = "Save",
+            .Location = New Point(20, 220)
+        }
+
+        AddHandler btnSave.Click, Sub()
+                                      Dim remarkText As String = txtRemark.Text.Trim()
+                                      If remarkText <> "" Then
+                                          SaveRemark(remarkText)
+                                          MessageBox.Show("Remark saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                          remarksForm.Close()
+                                      Else
+                                          MessageBox.Show("Please enter a remark before saving.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                                      End If
+                                  End Sub
+
+        remarksForm.Controls.Add(lblRemark)
+        remarksForm.Controls.Add(txtRemark)
+        remarksForm.Controls.Add(btnSave)
+        remarksForm.ShowDialog()
+    End Sub
+
+    Private Sub SaveRemark(remark As String)
+        Try
+            If Not Directory.Exists(ROOT_FOLDER) Then
+                Directory.CreateDirectory(ROOT_FOLDER)
+            End If
+
+            Dim headerNeeded As Boolean = Not File.Exists(REMARKS_FILE)
+            Using writer As New StreamWriter(REMARKS_FILE, True)
+                If headerNeeded Then
+                    writer.WriteLine("Date,Time,User,Remark")
+                End If
+                writer.WriteLine($"{DateTime.Now:dd-MM-yyyy},{DateTime.Now:HH:mm:ss},Admin,{remark.Replace(",", " ")}")
+            End Using
+        Catch ex As Exception
+            MessageBox.Show($"Error saving remark: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+
+
+
+
+
+    ' -------------------------------------------------------------
+    ' EXIT FUNCTIONALITY (Enhanced with Style)
+    ' -------------------------------------------------------------
+    Private Sub ConfirmAndExit()
+        Dim result As DialogResult = MessageBox.Show(
+        "Are you sure you want to exit? Please make sure all data is saved.",
+        "Confirm Exit",
+        MessageBoxButtons.YesNo,
+        MessageBoxIcon.Question
+    )
+
+        If result = DialogResult.Yes Then
+            Dim exitScreen As New ExitForm()
+            exitScreen.ShowDialog()
+        End If
+    End Sub
+
+    ' Red Cross Clicked
+    Protected Overrides Sub OnFormClosing(e As FormClosingEventArgs)
+        If e.CloseReason = CloseReason.UserClosing Then
+            e.Cancel = True
+            ConfirmAndExit()
+        End If
+    End Sub
+
+    ' Exit Menu Clicked
+    Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
+        ConfirmAndExit()
+    End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
 End Class
 
 

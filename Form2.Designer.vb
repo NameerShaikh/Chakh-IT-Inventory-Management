@@ -25,9 +25,8 @@ Partial Class FrmMain
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.DAshboardToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StockINToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StockOutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RawMaterialInToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StockToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RawMaterialsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReportsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BillsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -43,6 +42,9 @@ Partial Class FrmMain
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.contentPanel = New System.Windows.Forms.Panel()
+        Me.FinancesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AdminPanelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RemarksToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -51,7 +53,7 @@ Partial Class FrmMain
         'MenuStrip1
         '
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DAshboardToolStripMenuItem, Me.StockINToolStripMenuItem, Me.StockOutToolStripMenuItem, Me.RawMaterialInToolStripMenuItem, Me.ReportsToolStripMenuItem, Me.BillsToolStripMenuItem, Me.ExitToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DAshboardToolStripMenuItem, Me.StockToolStripMenuItem, Me.RawMaterialsToolStripMenuItem, Me.ReportsToolStripMenuItem, Me.BillsToolStripMenuItem, Me.FinancesToolStripMenuItem, Me.AdminPanelToolStripMenuItem, Me.RemarksToolStripMenuItem, Me.ExitToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 2, 0, 2)
@@ -65,23 +67,17 @@ Partial Class FrmMain
         Me.DAshboardToolStripMenuItem.Size = New System.Drawing.Size(96, 24)
         Me.DAshboardToolStripMenuItem.Text = "Dashboard"
         '
-        'StockINToolStripMenuItem
+        'StockToolStripMenuItem
         '
-        Me.StockINToolStripMenuItem.Name = "StockINToolStripMenuItem"
-        Me.StockINToolStripMenuItem.Size = New System.Drawing.Size(78, 24)
-        Me.StockINToolStripMenuItem.Text = "Stock IN"
+        Me.StockToolStripMenuItem.Name = "StockToolStripMenuItem"
+        Me.StockToolStripMenuItem.Size = New System.Drawing.Size(59, 24)
+        Me.StockToolStripMenuItem.Text = "Stock"
         '
-        'StockOutToolStripMenuItem
+        'RawMaterialsToolStripMenuItem
         '
-        Me.StockOutToolStripMenuItem.Name = "StockOutToolStripMenuItem"
-        Me.StockOutToolStripMenuItem.Size = New System.Drawing.Size(92, 24)
-        Me.StockOutToolStripMenuItem.Text = "Stock OUT"
-        '
-        'RawMaterialInToolStripMenuItem
-        '
-        Me.RawMaterialInToolStripMenuItem.Name = "RawMaterialInToolStripMenuItem"
-        Me.RawMaterialInToolStripMenuItem.Size = New System.Drawing.Size(126, 24)
-        Me.RawMaterialInToolStripMenuItem.Text = "Raw Material In"
+        Me.RawMaterialsToolStripMenuItem.Name = "RawMaterialsToolStripMenuItem"
+        Me.RawMaterialsToolStripMenuItem.Size = New System.Drawing.Size(110, 24)
+        Me.RawMaterialsToolStripMenuItem.Text = "Raw Material"
         '
         'ReportsToolStripMenuItem
         '
@@ -247,6 +243,24 @@ Partial Class FrmMain
         Me.contentPanel.Size = New System.Drawing.Size(835, 473)
         Me.contentPanel.TabIndex = 20
         '
+        'FinancesToolStripMenuItem
+        '
+        Me.FinancesToolStripMenuItem.Name = "FinancesToolStripMenuItem"
+        Me.FinancesToolStripMenuItem.Size = New System.Drawing.Size(79, 24)
+        Me.FinancesToolStripMenuItem.Text = "Finances"
+        '
+        'AdminPanelToolStripMenuItem
+        '
+        Me.AdminPanelToolStripMenuItem.Name = "AdminPanelToolStripMenuItem"
+        Me.AdminPanelToolStripMenuItem.Size = New System.Drawing.Size(106, 24)
+        Me.AdminPanelToolStripMenuItem.Text = "Admin Panel"
+        '
+        'RemarksToolStripMenuItem
+        '
+        Me.RemarksToolStripMenuItem.Name = "RemarksToolStripMenuItem"
+        Me.RemarksToolStripMenuItem.Size = New System.Drawing.Size(79, 24)
+        Me.RemarksToolStripMenuItem.Text = "Remarks"
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -274,9 +288,8 @@ Partial Class FrmMain
 
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents DAshboardToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents StockINToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents StockOutToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents RawMaterialInToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents StockToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RawMaterialsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ReportsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BillsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
@@ -292,4 +305,7 @@ Partial Class FrmMain
     Public WithEvents contentPanel As Panel
     Friend WithEvents Button3 As Button
     Friend WithEvents Button7 As Button
+    Friend WithEvents FinancesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AdminPanelToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RemarksToolStripMenuItem As ToolStripMenuItem
 End Class

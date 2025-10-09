@@ -1,9 +1,9 @@
 BillNo,Date,Time,Customer,TotalAmount,PaymentType,AmountPaid,AmountCredit,,,,
 INV20251007173412,07-10-25,17:34:12,John Doe,45687546,Rangeen Pop Small() x 1 | Rangeen Pop Big() x 1 | Melon Pop() x 1 | Jalebi Jelly() x 1,4,35000,Complete Payment,Cash,0,0
-INV20251007180441,2025-10-07,18:04:41,Jane Smith,465798,Rangeen Pop Small (Outer) x 4 | Jalebi Jelly (Outer) x 3,7,5500,Partial Payment,Cash,4000,1500
-INV071020252123,XYZ Enterprises,1234567890,07-10-2025,21:21:37,"Rangeen Pop Small x5 (Outers) | Rangeen Pop Big x1 (MasterOuters) | Melon Pop x1 (Outers) | Jalebi Jelly x1 (MasterOuters)",8,28550.00,Partial Payment,Cash,18500,10050.00
-INV081020250145,,,08-10-2025,01:45:53,"",0,0.00,,,,
-INV091020250544,cust_test,963852741,09-10-2025,05:42:40,"Rangeen Pop Big x3 (Outers)",3,1560.00,Partial Payment,Online,60,1500.00
-INV091020250604,custo_test,852741963,09-10-2025,06:03:16,"Jalebi Jelly x2 (Outers)",2,12000.00,Partial Payment,Online,2800,9200.00
-INV091020250620,Nam_test,852,09-10-2025,06:19:50,"Melon Pop x1 (Outers)",1,900.00,Partial Payment,Online,450,450.00
-INV091020250627,test_NAM,846,09-10-25,06:27:19,"Rangeen Pop Big x3 (Outers)",3,1560.00,Partial Payment,Online,1350,210.00
+INV20251007180441,07-10-25,18:04:41,Jane Smith,465798,Rangeen Pop Small (Outer) x 4 | Jalebi Jelly (Outer) x 3,7,5500,Partial Payment,Cash,4000,1500
+INV071020252123,XYZ Enterprises,1234567890,07-10-25,21:21:37,Rangeen Pop Small x5 (Outers) | Rangeen Pop Big x1 (MasterOuters) | Melon Pop x1 (Outers) | Jalebi Jelly x1 (MasterOuters),8,28550,Partial Payment,Cash,18500,10050
+INV081020250145,,,08-10-25,1:45:53,,0,0,,,,
+INV091020250544,cust_test,963852741,09-10-25,5:42:40,Rangeen Pop Big x3 (Outers),3,1560,Partial Payment,Online,60,1500
+INV091020250604,custo_test,852741963,09-10-25,6:03:16,Jalebi Jelly x2 (Outers),2,12000,Partial Payment,Online,2800,9200
+INV091020250620,Nam_test,852,09-10-25,6:19:50,Melon Pop x1 (Outers),1,900,Partial Payment,Online,450,450
+INV091020250627,test_NAM,846,09-10-25,6:27:19,Rangeen Pop Big x3 (Outers),3,1560,Partial Payment,Online,1350,210
