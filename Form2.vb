@@ -39,7 +39,7 @@ Public Class FrmMain
     Private billsForm As New BillsTab()
 
     ' Create  BillsForm instance
-    Private financesForm As New Finances()
+    Private creditForm As New Credit()
 
     ' Create  BillsForm instance
     Private AdminForm As New AdminPanel()
@@ -295,25 +295,37 @@ Public Class FrmMain
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
         Label2.Text = "Reports"
-        ShowPanelInContentPanel(reportsForm.reportsPanel)
+
+        Dim reportsForm As New Reports()
+        LoadFormInPanel(reportsForm)
+        'ShowPanelInContentPanel(reportsForm.reportsPanel)
 
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
 
         Label2.Text = "Bills"
+
+        Dim billsForm As New BillsTab()
         LoadFormInPanel(billsForm)
 
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+
+
         Label2.Text = "Finances"
-        LoadFormInPanel(financesForm)
+
+        ' Create  BillsForm instance
+        Dim creditForm As New Credit()
+        LoadFormInPanel(creditForm)
 
     End Sub
 
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
         Label2.Text = "Admin Panel"
+
+        Dim AdminForm As New AdminPanel()
         LoadFormInPanel(AdminForm)
 
     End Sub

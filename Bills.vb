@@ -142,7 +142,7 @@ Public Class Bills
 
     Private Sub FillDateTime()
         ' Set the date in txtDate (format: dd-MM-yyyy)
-        txtDate.Text = DateTime.Now.ToString("dd-MM-yyyy")
+        txtDate.Text = DateTime.Now.ToString("dd-MM-yy")
 
         ' Set the time in txtTime (format: HH:mm:ss)
         txtTime.Text = DateTime.Now.ToString("HH:mm:ss")

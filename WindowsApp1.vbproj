@@ -173,16 +173,16 @@
     <Compile Include="BillsTab.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Credit.Designer.vb">
+      <DependentUpon>Credit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Credit.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DashboardForm.Designer.vb">
       <DependentUpon>DashboardForm.vb</DependentUpon>
     </Compile>
     <Compile Include="DashboardForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Finances.Designer.vb">
-      <DependentUpon>Finances.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Finances.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.vb">
@@ -271,6 +271,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BillsTab.resx">
       <DependentUpon>BillsTab.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Credit.resx">
+      <DependentUpon>Credit.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DashboardForm.resx">
       <DependentUpon>DashboardForm.vb</DependentUpon>

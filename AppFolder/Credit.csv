@@ -1,3 +1,13 @@
-Customer,Date,InvoiceID,TotalAmount,Outstanding
-Jane Smith,465798,2025-10-07,INV20251007180441,5500,1500
-INV071020252123,XYZ Enterprises,1234567890,07-10-2025,21:21:37,28550.00,18500,10050.00,Partial Payment,Cash,"Rangeen Pop Small x5 (Outers) | Rangeen Pop Big x1 (MasterOuters) | Melon Pop x1 (Outers) | Jalebi Jelly x1 (MasterOuters)"
+InvoiceID,CustomerName,CustomerContact,Date,Time,GrandTotal,PaidAmount,OutstandingAmount,PaymentStatus,PaymentMode,ProductsString
+INV071020252123,XYZ Enterprises,1234567890,07-10-25,21:21:37,28550,18500,10050,Partial Payment,Cash,Rangeen Pop Small x5 (Outers) | Rangeen Pop Big x1 (MasterOuters) | Melon Pop x1 (Outers) | Jalebi Jelly x1 (MasterOuters)
+INV091020252125,Jane Smith,9123456780,09-10-25,14:20:45,20000,10000,10000,Partial Payment,Cash,Jalebi Jelly x2 (MasterOuters) | Rangeen Pop Big x1 (MasterOuters)
+INV101020252126,Acme Traders,9988776655,10-10-25,9:30:55,12000,0,12000,Unpaid,Cash,Rangeen Pop Small x4 (Outers) | Melon Pop x1 (Outers)
+INV111020252127,XYZ Enterprises,1234567890,11-10-25,16:45:20,18000,18000,0,Fully Paid,Card,Rangeen Pop Small x2 (Outers) | Jalebi Jelly x1 (MasterOuters)
+INV121020252128,Test,7894561230,12-10-25,11:10:05,22000,12000,10000,Partial Payment,Cash,Rangeen Pop Big x2 (MasterOuters) | Melon Pop x3 (Outers)
+INV131020252129,TestCustomer,6543217890,13-10-25,13:50:30,17000,17000,0,Fully Paid,Cash,Jalebi Jelly x2 (MasterOuters) | Rangeen Pop Small x2 (Outers)
+INV141020252130,John Doe,9876543210,14-10-25,15:25:40,19000,0,19000,Unpaid,Cash,Rangeen Pop Small x5 (Outers) | Rangeen Pop Big x1 (MasterOuters)
+INV151020252131,Jane Smith,9123456780,15-10-25,17:05:15,25000,15000,10000,Partial Payment,Card,Rangeen Pop Big x2 (MasterOuters) | Melon Pop x2 (Outers) | Jalebi Jelly x1 (MasterOuters)
+INV091020250544,cust_test,963852741,09-10-25,5:42:40,1560,60,1500,Partial Payment,Online,Rangeen Pop Big x3 (Outers)
+INV091020250604,custo_test,852741963,09-10-25,6:03:16,12000,2800,9200,Partial Payment,Online,Jalebi Jelly x2 (Outers)
+INV091020250620,Nam_test,852,09-10-25,6:19:50,900,450,450,Partial Payment,Online,Melon Pop x1 (Outers)
+INV091020250627,test_NAM,846,09-10-25,06:27:19,1560.00,1350,210.00,Partial Payment,Online,"Rangeen Pop Big x3 (Outers)"

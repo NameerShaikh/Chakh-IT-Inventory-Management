@@ -43,19 +43,19 @@ Partial Class Bills
         Me.btnSaveBill = New System.Windows.Forms.Button()
         Me.btnPartialEnter = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PanelBottom = New System.Windows.Forms.Panel()
-        Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.tlp1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.tlp3 = New System.Windows.Forms.TableLayoutPanel()
         Me.tlp2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tlp3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tlp1 = New System.Windows.Forms.TableLayoutPanel()
         CType(Me.dgvBill, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
-        Me.PanelBottom.SuspendLayout()
         Me.Panel3.SuspendLayout()
-        Me.tlp1.SuspendLayout()
-        Me.tlp3.SuspendLayout()
+        Me.PanelBottom.SuspendLayout()
         Me.tlp2.SuspendLayout()
+        Me.tlp3.SuspendLayout()
+        Me.tlp1.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblCustomer
@@ -320,6 +320,23 @@ Partial Class Bills
         Me.Panel1.Size = New System.Drawing.Size(1436, 767)
         Me.Panel1.TabIndex = 23
         '
+        'Panel3
+        '
+        Me.Panel3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Panel3.Controls.Add(Me.Label1)
+        Me.Panel3.Controls.Add(Me.txtTime)
+        Me.Panel3.Controls.Add(Me.lblTime)
+        Me.Panel3.Controls.Add(Me.txtDate)
+        Me.Panel3.Controls.Add(Me.lblCustomer)
+        Me.Panel3.Controls.Add(Me.lblDate)
+        Me.Panel3.Controls.Add(Me.cmbCustomer)
+        Me.Panel3.Controls.Add(Me.btnNewCustomer)
+        Me.Panel3.Location = New System.Drawing.Point(36, 3)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(1361, 116)
+        Me.Panel3.TabIndex = 25
+        '
         'Label1
         '
         Me.Label1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -346,22 +363,42 @@ Partial Class Bills
         Me.PanelBottom.Size = New System.Drawing.Size(1361, 189)
         Me.PanelBottom.TabIndex = 23
         '
-        'Panel3
+        'tlp2
         '
-        Me.Panel3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Panel3.Controls.Add(Me.Label1)
-        Me.Panel3.Controls.Add(Me.txtTime)
-        Me.Panel3.Controls.Add(Me.lblTime)
-        Me.Panel3.Controls.Add(Me.txtDate)
-        Me.Panel3.Controls.Add(Me.lblCustomer)
-        Me.Panel3.Controls.Add(Me.lblDate)
-        Me.Panel3.Controls.Add(Me.cmbCustomer)
-        Me.Panel3.Controls.Add(Me.btnNewCustomer)
-        Me.Panel3.Location = New System.Drawing.Point(36, 3)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(1361, 116)
-        Me.Panel3.TabIndex = 25
+        Me.tlp2.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.tlp2.ColumnCount = 2
+        Me.tlp2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.74559!))
+        Me.tlp2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.25441!))
+        Me.tlp2.Controls.Add(Me.txtGrandTotal, 1, 0)
+        Me.tlp2.Controls.Add(Me.cmbPaymentMode, 1, 1)
+        Me.tlp2.Controls.Add(Me.txtContact, 1, 2)
+        Me.tlp2.Controls.Add(Me.lblGrandTotal, 0, 0)
+        Me.tlp2.Controls.Add(Me.lblContact, 0, 2)
+        Me.tlp2.Controls.Add(Me.lblPaymentMode, 0, 1)
+        Me.tlp2.Location = New System.Drawing.Point(540, 12)
+        Me.tlp2.Name = "tlp2"
+        Me.tlp2.RowCount = 3
+        Me.tlp2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.tlp2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.tlp2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.tlp2.Size = New System.Drawing.Size(320, 90)
+        Me.tlp2.TabIndex = 27
+        '
+        'tlp3
+        '
+        Me.tlp3.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.tlp3.ColumnCount = 2
+        Me.tlp3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.55914!))
+        Me.tlp3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.44086!))
+        Me.tlp3.Controls.Add(Me.lblPartialNow, 0, 0)
+        Me.tlp3.Controls.Add(Me.txtPartialNow, 1, 0)
+        Me.tlp3.Location = New System.Drawing.Point(879, 14)
+        Me.tlp3.Name = "tlp3"
+        Me.tlp3.RowCount = 1
+        Me.tlp3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlp3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.tlp3.Size = New System.Drawing.Size(295, 35)
+        Me.tlp3.TabIndex = 26
         '
         'tlp1
         '
@@ -385,43 +422,6 @@ Partial Class Bills
         Me.tlp1.Size = New System.Drawing.Size(367, 116)
         Me.tlp1.TabIndex = 26
         '
-        'tlp3
-        '
-        Me.tlp3.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.tlp3.ColumnCount = 2
-        Me.tlp3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.55914!))
-        Me.tlp3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.44086!))
-        Me.tlp3.Controls.Add(Me.lblPartialNow, 0, 0)
-        Me.tlp3.Controls.Add(Me.txtPartialNow, 1, 0)
-        Me.tlp3.Location = New System.Drawing.Point(879, 14)
-        Me.tlp3.Name = "tlp3"
-        Me.tlp3.RowCount = 1
-        Me.tlp3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlp3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlp3.Size = New System.Drawing.Size(295, 35)
-        Me.tlp3.TabIndex = 26
-        '
-        'tlp2
-        '
-        Me.tlp2.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.tlp2.ColumnCount = 2
-        Me.tlp2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.74559!))
-        Me.tlp2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.25441!))
-        Me.tlp2.Controls.Add(Me.txtGrandTotal, 1, 0)
-        Me.tlp2.Controls.Add(Me.cmbPaymentMode, 1, 1)
-        Me.tlp2.Controls.Add(Me.txtContact, 1, 2)
-        Me.tlp2.Controls.Add(Me.lblGrandTotal, 0, 0)
-        Me.tlp2.Controls.Add(Me.lblContact, 0, 2)
-        Me.tlp2.Controls.Add(Me.lblPaymentMode, 0, 1)
-        Me.tlp2.Location = New System.Drawing.Point(540, 12)
-        Me.tlp2.Name = "tlp2"
-        Me.tlp2.RowCount = 3
-        Me.tlp2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
-        Me.tlp2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
-        Me.tlp2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
-        Me.tlp2.Size = New System.Drawing.Size(320, 90)
-        Me.tlp2.TabIndex = 27
-        '
         'Bills
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -435,15 +435,15 @@ Partial Class Bills
         Me.Text = "Bills"
         CType(Me.dgvBill, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
-        Me.PanelBottom.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
-        Me.tlp1.ResumeLayout(False)
-        Me.tlp1.PerformLayout()
-        Me.tlp3.ResumeLayout(False)
-        Me.tlp3.PerformLayout()
+        Me.PanelBottom.ResumeLayout(False)
         Me.tlp2.ResumeLayout(False)
         Me.tlp2.PerformLayout()
+        Me.tlp3.ResumeLayout(False)
+        Me.tlp3.PerformLayout()
+        Me.tlp1.ResumeLayout(False)
+        Me.tlp1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
