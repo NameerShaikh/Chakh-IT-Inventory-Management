@@ -2,11 +2,7 @@
 Imports iTextSharp.text.pdf
 Imports System.IO
 
-
 Public Class Bills
-
-
-
 
     Private ReadOnly ROOT_FOLDER As String = "C:\CHAKH IT Management Software\WindowsApp1\AppFolder"
     Private ReadOnly CUSTOMER_FILE As String = Path.Combine(ROOT_FOLDER, "CustomerConfig.csv")
@@ -14,7 +10,7 @@ Public Class Bills
     Private ReadOnly STOCK_FILE As String = Path.Combine(ROOT_FOLDER, "AvailableStock.csv")
     Private BILLS_FILE As String = Path.Combine(ROOT_FOLDER, "Bills.csv")
     Private CREDIT_FILE As String = Path.Combine(ROOT_FOLDER, "Credit.csv")
-
+    Private stockOutPath As String = Path.Combine(ROOT_FOLDER, "StockOut.csv")
 
     ' Product info dictionary: ProductName -> (MRP, PcsPerOuter, OutersPerMasterOuter)
     Public Class ProductInfo
@@ -23,12 +19,10 @@ Public Class Bills
         Public Property OutersPerMasterOuter As Integer
     End Class
 
-
-
     ' ProductName -> ProductInfo
     Private ProductDict As New Dictionary(Of String, ProductInfo)
 
-    ' (ProductName, Unit) -> TotalPcs
+    ' (ProductName) -> Outer available
     Private StockDict As New Dictionary(Of String, Integer) ' Product -> Outer available
 
     Private Sub CenterControls()
@@ -47,8 +41,6 @@ Public Class Bills
         ConfigurePaymentCombos()
         CenterControls()
     End Sub
-
-
 
     Private Sub LoadCustomers()
         Try
@@ -75,9 +67,6 @@ Public Class Bills
             MessageBox.Show("Error loading customers: " & ex.Message)
         End Try
     End Sub
-
-
-
 
     Private Sub cmbCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCustomer.SelectedIndexChanged
         If cmbCustomer.SelectedItem IsNot Nothing AndAlso cmbCustomer.SelectedItem.ToString() = "Add Customer..." Then
@@ -106,9 +95,6 @@ Public Class Bills
             End If
         End If
     End Sub
-
-
-
 
     Private Sub btnNewCustomer_Click(sender As Object, e As EventArgs) Handles btnNewCustomer.Click
         Try
@@ -148,12 +134,6 @@ Public Class Bills
         txtTime.Text = DateTime.Now.ToString("HH:mm:ss")
     End Sub
 
-
-
-
-
-
-
     Private Sub LoadProductData()
         If File.Exists(PRODUCT_FILE) Then
             For Each line In File.ReadAllLines(PRODUCT_FILE).Skip(1) ' skip header
@@ -177,16 +157,15 @@ Public Class Bills
                 Integer.TryParse(parts(3).Trim(), outersPerMasterOuter)
 
                 Dim info As New ProductInfo With {
-                .Mrp = mrp,
-                .PcsPerOuter = pcsPerOuter,
-                .OutersPerMasterOuter = outersPerMasterOuter
-            }
+                    .Mrp = mrp,
+                    .PcsPerOuter = pcsPerOuter,
+                    .OutersPerMasterOuter = outersPerMasterOuter
+                }
 
                 ProductDict(productName) = info
             Next
         End If
     End Sub
-
 
     Private Sub LoadStockData()
         If File.Exists(STOCK_FILE) Then
@@ -203,9 +182,6 @@ Public Class Bills
             Next
         End If
     End Sub
-
-
-
 
     Private Sub SetupDgvBill()
         dgvBill.Columns.Clear()
@@ -255,8 +231,6 @@ Public Class Bills
         amountCol.ReadOnly = True
         dgvBill.Columns.Add(amountCol)
     End Sub
-
-
 
     Private Sub dgvBill_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvBill.CellValueChanged
         If e.RowIndex < 0 Then Return
@@ -313,9 +287,7 @@ Public Class Bills
         ' Update total items
         UpdateTotalItems()
         UpdateGrandTotal()
-
     End Sub
-
 
     Private Sub dgvBill_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgvBill.CellEndEdit
         If e.RowIndex < 0 Then Return
@@ -357,16 +329,10 @@ Public Class Bills
         dgvBill_CellValueChanged(sender, New DataGridViewCellEventArgs(e.ColumnIndex, e.RowIndex))
     End Sub
 
-
-
-
-
     Private Sub dgvBill_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvBill.RowsAdded
         UpdateTotalItems()
         UpdateGrandTotal()
     End Sub
-
-
 
     Private Sub UpdateTotalItems()
         Dim totalItems As Integer = 0
@@ -381,8 +347,6 @@ Public Class Bills
         txtTotalItems.Text = totalItems.ToString()
     End Sub
 
-
-
     Private Sub UpdateGrandTotal()
         Dim grandTotal As Decimal = 0
 
@@ -396,7 +360,6 @@ Public Class Bills
         txtGrandTotal.Text = grandTotal.ToString("0.00") ' formatted with 2 decimals
     End Sub
 
-
     Private Sub ConfigurePaymentCombos()
         ' Payment Status options
         cmbPaymentStatus.Items.Clear()
@@ -407,9 +370,6 @@ Public Class Bills
         cmbPaymentMode.Items.AddRange({"Online", "Cash", "Card"})
         cmbPaymentMode.Enabled = False ' default disabled
     End Sub
-
-
-
 
     Private Sub cmbPaymentStatus_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPaymentStatus.SelectedIndexChanged
         Dim status = cmbPaymentStatus.SelectedItem?.ToString()
@@ -440,9 +400,6 @@ Public Class Bills
         End Select
     End Sub
 
-
-
-
     Private Sub btnPartialEnter_Click(sender As Object, e As EventArgs) Handles btnPartialEnter.Click
         Dim partialPaid As Decimal = 0
         Decimal.TryParse(txtPartialNow.Text.Trim(), partialPaid)
@@ -458,13 +415,6 @@ Public Class Bills
         Dim outstanding As Decimal = grandTotal - partialPaid
         txtOutstanding.Text = outstanding.ToString("0.00")
     End Sub
-
-
-
-
-
-
-
 
     Private Sub UpdateBillAndCreditCSV(invoiceID As String)
         Try
@@ -490,19 +440,19 @@ Public Class Bills
             End If
 
             Dim billLine As String = String.Join(",", New String() {
-            invoiceID,
-            cmbCustomer.Text,
-            txtContact.Text,
-            txtDate.Text,
-            txtTime.Text,
-            """" & productsStr & """",   ' wrap in quotes to avoid comma issues
-            txtTotalItems.Text,
-            txtGrandTotal.Text,
-            cmbPaymentStatus.Text,
-            cmbPaymentMode.Text,
-            txtPartialNow.Text,
-            txtOutstanding.Text
-        })
+                invoiceID,
+                cmbCustomer.Text,
+                txtContact.Text,
+                txtDate.Text,
+                txtTime.Text,
+                """" & productsStr & """",   ' wrap in quotes to avoid comma issues
+                txtTotalItems.Text,
+                txtGrandTotal.Text,
+                cmbPaymentStatus.Text,
+                cmbPaymentMode.Text,
+                txtPartialNow.Text,
+                txtOutstanding.Text
+            })
 
             File.AppendAllText(billsFile, billLine & Environment.NewLine)
 
@@ -515,18 +465,18 @@ Public Class Bills
 
                 Dim paidAmount As String = If(cmbPaymentStatus.Text = "Complete Credit", "0", txtPartialNow.Text)
                 Dim creditLine As String = String.Join(",", New String() {
-                invoiceID,
-                cmbCustomer.Text,
-                txtContact.Text,
-                txtDate.Text,
-                txtTime.Text,
-                txtGrandTotal.Text,
-                paidAmount,
-                txtOutstanding.Text,
-                cmbPaymentStatus.Text,
-                cmbPaymentMode.Text,
-                """" & productsStr & """"
-            })
+                    invoiceID,
+                    cmbCustomer.Text,
+                    txtContact.Text,
+                    txtDate.Text,
+                    txtTime.Text,
+                    txtGrandTotal.Text,
+                    paidAmount,
+                    txtOutstanding.Text,
+                    cmbPaymentStatus.Text,
+                    cmbPaymentMode.Text,
+                    """" & productsStr & """"
+                })
 
                 File.AppendAllText(creditFile, creditLine & Environment.NewLine)
             End If
@@ -538,80 +488,173 @@ Public Class Bills
         End Try
     End Sub
 
-
-
-
-
-
-
-
-
-    Private Sub UpdateStockAfterBill()
-        ' Load current stock
-        Dim stockLines = File.ReadAllLines(STOCK_FILE).ToList()
-        Dim headers = stockLines(0)
-        Dim newStockLines As New List(Of String)
-        newStockLines.Add(headers)
-
-        For i As Integer = 1 To stockLines.Count - 1
-            Dim parts = stockLines(i).Split(","c)
-            If parts.Length < 4 Then Continue For
-
-            Dim product = parts(0).Trim()
-            Dim mrp = parts(1).Trim()
-            Dim pcsPerOuter = parts(2).Trim()
-            Dim outerAvailable As Integer = 0
-            Integer.TryParse(parts(3).Trim(), outerAvailable)
-
-            ' Find total outers sold for this product
-            Dim outersSold As Integer = 0
-            For Each row As DataGridViewRow In dgvBill.Rows
-                If row.IsNewRow Then Continue For
-                If row.Cells("Product").Value?.ToString() = product Then
-                    Dim qty As Integer = 0
-                    Integer.TryParse(row.Cells("Quantity").Value?.ToString(), qty)
-                    Dim unit = row.Cells("Unit").Value?.ToString()
-
-                    If unit = "Outers" Then
-                        outersSold += qty
-                    ElseIf unit = "MasterOuters" Then
-                        ' Convert MasterOuters to outers
-                        Dim outersPerMaster = 1
-                        If ProductDict.ContainsKey(product) Then
-                            outersPerMaster = ProductDict(product).OutersPerMasterOuter
-                        End If
-                        outersSold += qty * outersPerMaster
-                    End If
-                End If
-            Next
-
-            ' Deduct sold outers
-            outerAvailable -= outersSold
-            If outerAvailable < 0 Then outerAvailable = 0
-
-            ' Recalculate MasterOuters
-            Dim masterOuters As Integer = 0
-            Dim outersPerMasterValue As Integer = 1
-            If ProductDict.ContainsKey(product) Then outersPerMasterValue = ProductDict(product).OutersPerMasterOuter
-            If outersPerMasterValue > 0 Then masterOuters = outerAvailable \ outersPerMasterValue
-
-            ' Total Pcs
-            Dim totalPcs As Integer = 0
-            If ProductDict.ContainsKey(product) Then
-                totalPcs = outerAvailable * ProductDict(product).PcsPerOuter
+    Private Sub UpdateStockAfterBill(invoiceID As String)
+        Try
+            ' Ensure stock file exists
+            If Not File.Exists(STOCK_FILE) Then
+                MessageBox.Show("Available stock file not found: " & STOCK_FILE, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
             End If
 
-            newStockLines.Add(String.Join(",", product, mrp, pcsPerOuter, outerAvailable, masterOuters, totalPcs))
-        Next
+            Dim stockLines = File.ReadAllLines(STOCK_FILE).ToList()
+            If stockLines.Count = 0 Then
+                MessageBox.Show("Available stock file is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
 
-        File.WriteAllLines(STOCK_FILE, newStockLines)
+            Dim header = stockLines(0)
+            Dim dataLines = stockLines.Skip(1).ToList()
+
+            ' Build a map of product -> current outer available
+            Dim stockMap As New Dictionary(Of String, Integer)(StringComparer.OrdinalIgnoreCase)
+            Dim productMeta As New Dictionary(Of String, String)(StringComparer.OrdinalIgnoreCase) ' store original line for reuse (mrp, pcs per outer, etc.)
+
+            For Each line In dataLines
+                If String.IsNullOrWhiteSpace(line) Then Continue For
+                Dim parts = line.Split(","c)
+                If parts.Length < 4 Then Continue For
+                Dim product = parts(0).Trim()
+                Dim outerAvailable As Integer = 0
+                Integer.TryParse(parts(3).Trim(), outerAvailable)
+                stockMap(product) = outerAvailable
+                productMeta(product) = line ' keep whole line for reconstructing
+            Next
+
+            ' Prepare StockOut.csv header if not exist
+            Dim stockOutHeader As String = "Date,Time,Product,Unit,Quantity"
+
+            If Not File.Exists(stockOutPath) Then
+                File.WriteAllText(stockOutPath, stockOutHeader & Environment.NewLine)
+            End If
+
+            Dim stockOutLines As New List(Of String)
+
+            ' Iterate billed rows and deduct
+            For Each row As DataGridViewRow In dgvBill.Rows
+                If row.IsNewRow Then Continue For
+                Dim product = row.Cells("Product").Value?.ToString()
+                If String.IsNullOrWhiteSpace(product) Then Continue For
+
+                Dim qty As Integer = 0
+                Integer.TryParse(row.Cells("Quantity").Value?.ToString(), qty)
+                Dim unit = row.Cells("Unit").Value?.ToString()
+
+                If qty <= 0 Then Continue For
+
+                ' Compute outers sold for deduction and total pcs sold for log
+                Dim outersSold As Integer = 0
+                Dim totalPcsSold As Integer = 0
+
+                If unit = "Outers" Then
+                    outersSold = qty
+                    If ProductDict.ContainsKey(product) Then
+                        totalPcsSold = qty * ProductDict(product).PcsPerOuter
+                    Else
+                        totalPcsSold = 0
+                    End If
+                ElseIf unit = "MasterOuters" Then
+                    Dim outersPerMaster As Integer = 1
+                    Dim pcsPerOuter As Integer = 0
+                    If ProductDict.ContainsKey(product) Then
+                        outersPerMaster = ProductDict(product).OutersPerMasterOuter
+                        pcsPerOuter = ProductDict(product).PcsPerOuter
+                    End If
+                    outersSold = qty * outersPerMaster
+                    totalPcsSold = qty * outersPerMaster * pcsPerOuter
+                End If
+
+                ' Deduct from map
+                If stockMap.ContainsKey(product) Then
+                    stockMap(product) = Math.Max(0, stockMap(product) - outersSold)
+                Else
+                    ' If product not in stockMap, still log the stock out entry but no deduction
+                    stockMap(product) = 0
+                End If
+
+                ' Add StockOut log line
+                Dim stockOutLine As String = String.Join(",", {
+                    DateTime.Now.ToString("dd-MM-yyyy"),
+                    DateTime.Now.ToString("HH:mm:ss"),
+                    product,
+                    unit,
+                    qty.ToString()
+                    })
+
+                stockOutLines.Add(stockOutLine)
+            Next
+
+            ' Rebuild AvailableStock.csv lines preserving columns similar to existing format:
+            ' product,mrp,pcsPerOuter,outerAvailable,masterOuters,totalPcs
+            Dim newStockLines As New List(Of String)
+            newStockLines.Add(header)
+
+            For Each kvp In stockMap
+                Dim product = kvp.Key
+                Dim outerAvailable = kvp.Value
+
+                ' Try to get original parts to preserve mrp and pcsPerOuter values
+                Dim mrp As String = ""
+                Dim pcsPerOuter As String = ""
+                Dim outersPerMasterValue As Integer = 1
+
+                If productMeta.ContainsKey(product) Then
+                    Dim origParts = productMeta(product).Split(","c)
+                    If origParts.Length >= 4 Then
+                        If origParts.Length > 1 Then mrp = origParts(1).Trim()
+                        If origParts.Length > 2 Then pcsPerOuter = origParts(2).Trim()
+                        ' If original file had master outers column beyond index 3, we will not assume positions — keep consistent with previous write
+                    End If
+                End If
+
+                If ProductDict.ContainsKey(product) Then
+                    outersPerMasterValue = ProductDict(product).OutersPerMasterOuter
+                End If
+
+                Dim masterOuters As Integer = 0
+                If outersPerMasterValue > 0 Then
+                    masterOuters = outerAvailable \ outersPerMasterValue
+                End If
+
+                Dim totalPcs As Integer = 0
+                If ProductDict.ContainsKey(product) Then
+                    totalPcs = outerAvailable * ProductDict(product).PcsPerOuter
+                Else
+                    ' If no product meta, attempt to calculate from pcsPerOuter if present
+                    Dim pcsVal As Integer = 0
+                    Integer.TryParse(pcsPerOuter, pcsVal)
+                    totalPcs = outerAvailable * pcsVal
+                End If
+
+                ' Write with same column order as earlier code expected
+                Dim lineOut As String = String.Join(",", {product, mrp, pcsPerOuter, outerAvailable.ToString(), masterOuters.ToString(), totalPcs.ToString()})
+                newStockLines.Add(lineOut)
+            Next
+
+            ' Write updated stock file
+            File.WriteAllLines(STOCK_FILE, newStockLines)
+
+            If stockOutLines.Count > 0 Then
+                Using fs As New FileStream(stockOutPath, FileMode.Append, FileAccess.Write, FileShare.Read)
+                    Using sw As New StreamWriter(fs)
+                        For Each line In stockOutLines
+                            sw.WriteLine(line)
+                        Next
+                        sw.Flush()   ' 🔥 THIS IS THE KEY
+                    End Using
+                End Using
+            End If
+
+
+            ' Refresh in-memory StockDict so UI calculations use updated stock immediately
+            StockDict.Clear()
+            For Each kvp In stockMap
+                StockDict(kvp.Key) = kvp.Value
+            Next
+
+        Catch ex As Exception
+            MessageBox.Show("Error updating stock after bill: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
-
-
-
-
-
-
 
     Private Function GenerateInvoicePDF() As String
         Try
@@ -721,16 +764,6 @@ Public Class Bills
         End Try
     End Function
 
-
-
-
-
-
-
-
-
-
-
     Private Sub btnSaveBill_Click(sender As Object, e As EventArgs) Handles btnSaveBill.Click
         ' 1️⃣ Validate stock for all rows (quantity <= available)
         For Each row As DataGridViewRow In dgvBill.Rows
@@ -762,13 +795,66 @@ Public Class Bills
         ' 2️⃣ Generate PDF
         Dim invoiceID = GenerateInvoicePDF()
 
-        ' 3️⃣ Update Available Stock
-        UpdateStockAfterBill()
+        ' If PDF generation failed
+        If String.IsNullOrWhiteSpace(invoiceID) Then
+            MessageBox.Show("Invoice generation failed. Aborting save.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        ' 3️⃣ Update Available Stock (and write StockOut entries)
+        UpdateStockAfterBill(invoiceID)
 
         'Update the Bills.csv and Credit.csv
         UpdateBillAndCreditCSV(invoiceID)
 
+
+        ' 🔄 Refresh dashboard immediately after billing
+        If Application.OpenForms.OfType(Of DashboardForm).Any() Then
+            Dim dash = Application.OpenForms.OfType(Of DashboardForm).First()
+            dash.Invoke(Sub()
+                            dash.ReloadDashboard()
+                        End Sub)
+        End If
+
+
+
+
         MessageBox.Show("Bill saved, invoice generated, and stock updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        ClearBillForm()
+
+    End Sub
+
+
+
+    Private Sub ClearBillForm()
+        ' --- Clear customer & contact ---
+        cmbCustomer.SelectedIndex = 0
+        txtContact.Clear()
+
+        ' --- Reset date & time ---
+        FillDateTime()
+
+        ' --- Clear grid ---
+        dgvBill.Rows.Clear()
+
+        ' --- Clear totals ---
+        txtTotalItems.Text = "0"
+        txtGrandTotal.Text = "0.00"
+
+        ' --- Reset payment section ---
+        cmbPaymentStatus.SelectedIndex = -1
+        cmbPaymentMode.SelectedIndex = -1
+        cmbPaymentMode.Enabled = False
+
+        txtPartialNow.Clear()
+        txtPartialNow.Enabled = False
+
+        txtOutstanding.Text = "0.00"
+
+        ' --- Refresh stock dictionary (optional but recommended) ---
+        StockDict.Clear()
+        LoadStockData()
     End Sub
 
 

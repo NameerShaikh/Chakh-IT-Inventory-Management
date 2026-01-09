@@ -150,11 +150,25 @@ Partial Public Class Reports
         Dim filtered = dt.AsEnumerable().Where(Function(r)
                                                    ' Parse date in format dd-MM-yy
                                                    Dim recDate As DateTime
-                                                   If DateTime.TryParseExact(r(dateColumnIndex).ToString().Trim(),
-                                                                             "dd-MM-yy",
-                                                                             Globalization.CultureInfo.InvariantCulture,
-                                                                             Globalization.DateTimeStyles.None,
-                                                                             recDate) Then
+                                                   Dim dateStr As String = r(dateColumnIndex).ToString().Trim()
+
+                                                   Dim formats() As String = {
+                                                       "dd-MM-yy",
+                                                       "dd-MM-yyyy",
+                                                       "dd/MM/yyyy",
+                                                       "dd/MM/yy",
+                                                       "yyyy-MM-dd",
+                                                       "dd-MM-yyyy HH:mm:ss",
+                                                       "dd/MM/yyyy HH:mm:ss"
+                                                   }
+
+                                                   If DateTime.TryParseExact(
+                                                           dateStr,
+                                                           formats,
+                                                           Globalization.CultureInfo.InvariantCulture,
+                                                           Globalization.DateTimeStyles.AllowWhiteSpaces,
+                                                           recDate) Then
+
                                                        ' Apply Date Range filter
                                                        If recDate >= fromDate AndAlso recDate <= toDate Then
                                                            ' Apply Item filter if not "All"

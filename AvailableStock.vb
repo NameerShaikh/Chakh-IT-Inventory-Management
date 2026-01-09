@@ -77,6 +77,7 @@ Public Class AvailableStock
             ' --- Load product configuration into dictionaries (case-insensitive) ---
             Dim outersPerMasterDict As New Dictionary(Of String, Integer)(StringComparer.InvariantCultureIgnoreCase)
             Dim configPcsPerOuter As New Dictionary(Of String, Integer)(StringComparer.InvariantCultureIgnoreCase)
+            Dim configMrpDict As New Dictionary(Of String, Integer)(StringComparer.InvariantCultureIgnoreCase)
 
             Dim cfgLines() As String = IO.File.ReadAllLines(configFilePath)
             For i As Integer = 1 To cfgLines.Length - 1 ' skip header
@@ -84,20 +85,37 @@ Public Class AvailableStock
                 If line = "" Then Continue For
                 Dim parts() As String = line.Split(","c)
                 ' Expecting: ProductName, Mrp, PcsPerOuter, OutersPerMasterOuter
-                If parts.Length >= 4 Then
-                    Dim prodName As String = parts(0).Trim()
-                    Dim pcsPerOuterVal As Integer = 0
-                    Dim outersPerMasterVal As Integer = 0
-                    Integer.TryParse(parts(2).Trim(), pcsPerOuterVal)
-                    Integer.TryParse(parts(3).Trim(), outersPerMasterVal)
 
-                    If pcsPerOuterVal > 0 AndAlso Not configPcsPerOuter.ContainsKey(prodName) Then
-                        configPcsPerOuter.Add(prodName, pcsPerOuterVal)
+
+
+
+
+
+                If parts.Length >= 4 Then
+                        Dim prodName As String = parts(0).Trim()
+
+                        Dim mrpVal As Integer = 0
+                        Integer.TryParse(parts(1).Trim(), mrpVal)
+
+                        Dim pcsPerOuterVal As Integer = 0
+                        Integer.TryParse(parts(2).Trim(), pcsPerOuterVal)
+
+                        Dim outersPerMasterVal As Integer = 0
+                        Integer.TryParse(parts(3).Trim(), outersPerMasterVal)
+
+                        If mrpVal > 0 AndAlso Not configMrpDict.ContainsKey(prodName) Then
+                            configMrpDict.Add(prodName, mrpVal)
+                        End If
+
+                        If pcsPerOuterVal > 0 AndAlso Not configPcsPerOuter.ContainsKey(prodName) Then
+                            configPcsPerOuter.Add(prodName, pcsPerOuterVal)
+                        End If
+
+                        If outersPerMasterVal > 0 AndAlso Not outersPerMasterDict.ContainsKey(prodName) Then
+                            outersPerMasterDict.Add(prodName, outersPerMasterVal)
+                        End If
                     End If
-                    If outersPerMasterVal > 0 AndAlso Not outersPerMasterDict.ContainsKey(prodName) Then
-                        outersPerMasterDict.Add(prodName, outersPerMasterVal)
-                    End If
-                End If
+
             Next
 
             ' --- Prepare DataGridView ---
@@ -122,8 +140,15 @@ Public Class AvailableStock
                 ' Expected at least: Product, MRP, PcsPerOuter, OutersAvailable
                 If cols.Length < 4 Then Continue For
 
+
+                ' Dim configMrpDict As New Dictionary(Of String, Integer)(StringComparer.InvariantCultureIgnoreCase)
+
                 Dim product As String = cols(0).Trim()
-                Dim mrpText As String = cols(1).Trim()
+                Dim mrpText As Integer = 0
+                If configMrpDict.ContainsKey(product) Then
+                    mrpText = configMrpDict(product)
+                End If
+
 
                 ' PcsPerOuter: prefer stock file value; fallback to config
                 Dim pcsPerOuter As Integer = 0

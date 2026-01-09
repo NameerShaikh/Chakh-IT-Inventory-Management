@@ -10,15 +10,16 @@ Partial Class DashboardForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Me.SuspendLayout()
         '
         'DashboardForm
         '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1000, 600)
         Me.Name = "DashboardForm"
         Me.Text = "Dashboard"
         Me.ResumeLayout(False)
+
     End Sub
 End Class

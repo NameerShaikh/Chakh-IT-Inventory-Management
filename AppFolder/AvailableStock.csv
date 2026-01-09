@@ -1,6 +1,9 @@
 Product,MRP,PcsPerOuter,Outer,MasterOuters,TotalPcs
-Rangeen Pop Small,20,50,31,3,1550
-Rangeen Pop Big,10,100,12,1,624
-Melon Pop,20,50,6,0,360
-Jalebi Jelly,10,50,11,0,660
-Test007,0,50,5,0,250
+Rangeen Pop Small,20,50,95,11,4750
+Rangeen Pop Big,10,100,115,9,5980
+Melon Pop,20,50,253,21,15180
+Jalebi Jelly,10,50,90,7,5400
+Test007,0,50,55,5,660
+Testttt,0,50,80,5,4000
+Chakh It Specials,0,12,594,29,7128
+addtest,0,50,12,600

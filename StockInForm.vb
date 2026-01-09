@@ -30,7 +30,7 @@ Partial Class StockInForm
         txtUnit.SelectedIndex = 0
 
         ' Auto-fill date/time
-        txtEntryDate.Text = DateTime.Now.ToString("dd-MM-yyyy")
+        txtEntryDate.Text = DateTime.Now.ToString("dd-MM-yy")
         txtEntryTime.Text = DateTime.Now.ToString("HH:mm:ss")
 
         ' === ComboBox Hover Dropdown Configuration ===

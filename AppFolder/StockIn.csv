@@ -1,25 +1,41 @@
-Entry Date,Entry Time,Product,Stock Unit,Quantity,Total Pieces,Batch No.,Purchase Price,Payment Mode
-30-09-25,5:50:44,Rangeen Pop,Pcs,500,500,gdfj5374,5,Online
-30-09-25,5:52:19,Rangeen Pop,Pcs,500,500,hjgvk98,5,Online
-30-09-25,5:52:59,Mango Cubes,Outer,20,1000,54,5,Credit
-30-09-25,5:57:46,Jalebi Jelly,Master Outer,10,13200,7546,5,Online
-30-09-25,5:59:32,Jalebi Jelly,Outer,5,325,456,2,Credit
-30-09-25,6:03:25,Mango Cubes,Master Outer,6,4800,456897,3,Cash
-30-09-25,15:32:49,Rangeen Pop,Outer,10,500,456,2,Credit
-30-09-25,16:09:16,Rangeen Pop,Outer,10,500,456,5,Online
-30-09-25,16:26:13,Rangeen Pop,Outer,10,500,75,2,Online
-30-09-25,18:21:48,Rangeen Pop,Outer,10,50,1000,5,Online
-30-09-25,18:23:14,Jalebi Jelly,Outer,5,60,900,2,Credit
-30-09-25,18:34:16,Jalebi Jelly,Outer,20,50,1250,3,Online
-30-09-25,18:37:39,Jalebi Jelly,Outer,5,50,1250,3,Credit
-01-10-25,11:58:50,Jalebi Jelly,Outer,5,50,1250,5,Online
-01-10-25,18:50:47,Rangeen Pop,Outer,5,50,1250,90,Online
-02-10-25,4:29:59,Rangeen Pop Small,Outer,16,50,2050,5,Online
-02-10-25,4:31:09,Rangeen Pop Small,Master Outer,1,50,2450,5,Online
-02-10-25,5:20:09,Rangeen Pop Small,Outer,1,50,2100,,
-07-10-2025,17:19:04,Rangeen Pop Small,Outer,10,50,2550,45612378,3,Cash
-07-10-2025,17:25:38,Melon Pop,Outer,5,60,900,123465978,35,Cash
-07-10-2025,17:32:17,Melon Pop,Outer,5,60,1200,13456,3,Cash
-07-10-2025,17:32:37,Jalebi Jelly,Outer,5,60,1800,123645,20,Cash
-07-10-2025,17:33:13,Rangeen Pop Big,Outer,5,100,3500,564,5,Cash
-08-10-2025,19:58:04,Test007,Outer,25,50,1250,12546,6,Cash
+Entry Date,Entry Time,Product,Stock Unit,Quantity,PcsPerOuter,Total Pieces,Batch No.,Purchase Price,Payment Mode
+29-12-25,10:00:00,Rangeen Pop,Outer,1,,50,BT1000,100,Cash
+02-10-25,10:07:00,Rangeen Pop,Master Outer,2,,1000,BT1001,101,UPI
+03-10-25,10:14:00,Mango Cubes,Outer,3,,120,BT1002,102,UPI
+04-10-25,10:21:00,Jalebi Jelly,Master Outer,4,,1000,BT1003,103,Cash
+05-10-25,10:28:00,Jalebi Jelly,Outer,5,,125,BT1004,104,UPI
+06-10-25,10:35:00,Mango Cubes,Master Outer,1,,320,BT1005,105,UPI
+07-10-25,10:42:00,Rangeen Pop,Outer,2,,100,BT1006,106,Cash
+08-10-25,10:49:00,Rangeen Pop,Master Outer,3,,1500,BT1007,107,UPI
+09-10-25,10:56:00,Rangeen Pop,Outer,4,,200,BT1008,108,UPI
+10-10-25,11:03:00,Rangeen Pop,Master Outer,5,,2500,BT1009,109,Cash
+11-10-25,11:10:00,Jalebi Jelly,Outer,1,,25,BT1010,110,UPI
+12-10-25,11:17:00,Jalebi Jelly,Master Outer,2,,500,BT1011,111,UPI
+13-10-25,11:24:00,Jalebi Jelly,Outer,3,,75,BT1012,112,Cash
+14-10-25,11:31:00,Jalebi Jelly,Master Outer,4,,1000,BT1013,113,UPI
+15-10-25,11:38:00,Rangeen Pop,Outer,5,,250,BT1014,114,UPI
+16-10-25,11:45:00,Rangeen Pop Small,Master Outer,1,,360,BT1015,115,Cash
+17-10-25,11:52:00,Rangeen Pop Small,Outer,2,,60,BT1016,116,UPI
+18-10-25,11:59:00,Rangeen Pop Small,Master Outer,3,,1080,BT1017,117,UPI
+19-10-25,12:06:00,Rangeen Pop Small,Outer,4,,120,BT1018,118,Cash
+20-10-25,12:13:00,Melon Pop,Master Outer,5,,1000,BT1019,119,UPI
+21-10-25,12:20:00,Melon Pop,Outer,1,,20,BT1020,120,UPI
+22-10-25,12:27:00,Jalebi Jelly,Master Outer,2,,500,BT1021,121,Cash
+23-10-25,12:34:00,Rangeen Pop Big,Outer,3,,156,BT1022,122,UPI
+24-10-25,12:41:00,Test007,Master Outer,4,,400,BT1023,123,UPI
+25-10-25,12:48:00,Rangeen Pop Small,Outer,5,,150,BT1024,124,Cash
+26-10-25,12:55:00,Rangeen Pop Big,Master Outer,1,,520,BT1025,125,UPI
+27-10-25,13:02:00,Rangeen Pop Small,Outer,2,,60,BT1026,126,UPI
+28-10-25,13:09:00,Rangeen Pop Big,Master Outer,3,,1560,BT1027,127,Cash
+29-10-25,13:16:00,Melon Pop,Outer,4,,80,BT1028,128,UPI
+30-10-25,13:23:00,Jalebi Jelly,Master Outer,5,,1250,BT1029,129,UPI
+31-10-25,13:30:00,Testttt,Outer,1,,8,BT1030,130,Cash
+01-11-25,13:37:00,Test007,Master Outer,2,,200,BT1031,131,UPI
+02-11-25,13:44:00,Rangeen Pop Small,Outer,3,,90,BT1032,132,UPI
+03-11-25,13:51:00,Rangeen Pop Small,Master Outer,4,,1440,BT1033,133,Cash
+04-11-25,13:58:00,Rangeen Pop Big,Outer,5,,260,BT1034,134,UPI
+05-11-25,14:05:00,Chakh It Specials,Master Outer,1,,144,BT1035,135,UPI
+06-01-26,17:28:51,Melon Pop,Outer,10,60,600,1234567890,9,Cash
+08-01-26,17:40:21,Melon Pop,Outer,350,60,21000,1234567,8,Online
+09-01-26,10:50:00,addtest,Outer,10,50,500,123456,2,Online
+09-01-26,10:50:33,addtest,Outer,2,50,100,1345,5,Online

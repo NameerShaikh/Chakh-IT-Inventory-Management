@@ -1,9 +1,32 @@
-BillNo,Date,Time,Customer,TotalAmount,PaymentType,AmountPaid,AmountCredit,,,,
-INV20251007173412,07-10-25,17:34:12,John Doe,45687546,Rangeen Pop Small() x 1 | Rangeen Pop Big() x 1 | Melon Pop() x 1 | Jalebi Jelly() x 1,4,35000,Complete Payment,Cash,0,0
-INV20251007180441,07-10-25,18:04:41,Jane Smith,465798,Rangeen Pop Small (Outer) x 4 | Jalebi Jelly (Outer) x 3,7,5500,Partial Payment,Cash,4000,1500
+InvoiceID,CustomerName,Contact,Date,Time,Products,TotalItems,GrandTotal,PaymentStatus,PaymentMode,PartialPaid,Outstanding
+INV20251007173412,John Doe,45687546,07-10-25,17:34:12,Rangeen Pop Small x1 | Rangeen Pop Big x1 | Melon Pop x1 | Jalebi Jelly x1,4,35000,Complete Payment,Cash,0,0
+INV20251007180441,Jane Smith,465798,07-10-25,18:04:41,Rangeen Pop Small x4 (Outers) | Jalebi Jelly x3 (Outers),7,5500,Partial Payment,Cash,4000,1500
 INV071020252123,XYZ Enterprises,1234567890,07-10-25,21:21:37,Rangeen Pop Small x5 (Outers) | Rangeen Pop Big x1 (MasterOuters) | Melon Pop x1 (Outers) | Jalebi Jelly x1 (MasterOuters),8,28550,Partial Payment,Cash,18500,10050
 INV081020250145,,,08-10-25,1:45:53,,0,0,,,,
 INV091020250544,cust_test,963852741,09-10-25,5:42:40,Rangeen Pop Big x3 (Outers),3,1560,Partial Payment,Online,60,1500
 INV091020250604,custo_test,852741963,09-10-25,6:03:16,Jalebi Jelly x2 (Outers),2,12000,Partial Payment,Online,2800,9200
 INV091020250620,Nam_test,852,09-10-25,6:19:50,Melon Pop x1 (Outers),1,900,Partial Payment,Online,450,450
 INV091020250627,test_NAM,846,09-10-25,6:27:19,Rangeen Pop Big x3 (Outers),3,1560,Partial Payment,Online,1350,210
+INV101020250127,test_mkb,1234567890,10-10-25,1:26:46,Rangeen Pop Big x2 (Outers),2,1040,Partial Payment,Online,40,1000
+INV101020250221,Test,1234567890,10-10-25,2:20:57,Rangeen Pop Small x1 (Outers),1,500,Partial Payment,Online,230,270
+INV101020251722,XYZ Enterprises,1234567,10-10-25,17:21:36,Rangeen Pop Big x2 (Outers),2,1040,Partial Payment,Online,40,1000
+INV111020251825,ketan,,11-10-25,18:23:51,Rangeen Pop Small x2 (Outers),2,1000,Complete Credit,CREDIT,,1000
+INV211020251520,ketan,123465,21-10-25,15:18:32,Rangeen Pop Big x2 (Outers) | Melon Pop x1 (Outers),3,1940,Partial Payment,Online,1100,840
+INV041120251127,cust_test,1234567890,04-11-25,11:26:59,Rangeen Pop Big x2 (Outers),2,1040,Partial Payment,Online,556,484
+INV041120251222,Test,987654321,04-11-25,12:22:03,Jalebi Jelly x2 (Outers),2,1200,Partial Payment,Online,150,1050
+INV041120251231,cust_test,1234567890,04-11-25,12:31:22,Rangeen Pop Big x2 (Outers),2,1040,Partial Payment,Online,160,880
+INV041120251356,XYZ Enterprises,1234567890,04-11-25,13:56:09,Rangeen Pop Big x2 (Outers),2,1040,Partial Payment,Online,140,900
+INV291220251322,Nam,123456789,29-12-25,13:22:06,Melon Pop x15 (Outers),15,13500,Partial Payment,Online,3500,10000
+INV070120260033,test_NAM,1234567890,07-01-26,0:32:39,Jalebi Jelly x13 (Outers),13,7800,Complete Payment,Cash,,0
+INV070120260035,Roshan,1234567890,07-01-26,0:34:25,Melon Pop x20 (Outers),20,18000,Complete Payment,Online,,0
+INV080120261345,Nam,234567890,08-01-26,13:44:37,Melon Pop x2 (Outers),2,1800,Complete Payment,Online,,0
+INV080120261408,Nam_test,12345678901,08-01-26,14:07:45,Melon Pop x2 (Outers),2,1800,Complete Payment,Online,,0
+INV080120261607,cust_test,987654321,08-01-26,16:06:46,Chakh It Specials x10 (Outers),10,6000,Partial Payment,Online,3000,3000
+INV080120261622,cust_test,345,08-01-26,16:22:01,Chakh It Specials x50 (Outers),50,30000,Complete Payment,Online,,0
+INV080120261634,Test,123456,08-01-26,16:34:21,Melon Pop x11 (Outers),11,9900,Complete Payment,Online,,0
+INV080120261737,XYZ Enterprises,15423245,08-01-26,17:36:46,Testttt x10 (Outers),10,15000,Complete Payment,Card,,0
+INV080120261739,TestCustomer,7625542,08-01-26,17:39:07,Chakh It Specials x5 (Outers),5,3000,Complete Payment,Online,,0
+INV080120261741,test_NAM,123456,08-01-26,17:40:51,Melon Pop x85 (Outers),85,76500,Complete Payment,Online,,0
+INV080120261832,Acme Traders,654321,08-01-26,18:31:56,Chakh It Specials x85 (Outers),85,51000,Complete Payment,Online,,0
+INV080120261840,Acme Traders,12345,08-01-26,18:39:52,"Melon Pop x10 (Outers)",10,9000.00,Complete Payment,Online,,0.00
+INV090120261041,Acme Traders,23432,09-01-26,10:40:53,"Melon Pop x2 (Outers)",2,1800.00,Complete Payment,Online,,0.00

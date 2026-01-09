@@ -1,6 +1,12 @@
 Date,Time,RawMaterial,Unit,Quantity
 02-10-25,6:43:08,Polybag,Kg,5
-08-10-2025,19:59:34,test_Raw,grams,1000
-08-10-2025,20:03:30,test_Raw,grams,50
-09-10-2025,04:28:14,test_Raw,grams,1000
-09-10-2025,04:32:42,Test_005,test_unit,500
+08-10-25,19:59:34,test_Raw,grams,1000
+08-10-25,20:03:30,test_Raw,grams,50
+09-10-25,4:28:14,test_Raw,grams,1000
+09-10-25,4:32:42,Test_005,test_unit,500
+29-12-25,13:21:23,Tie,Packets,100
+29-12-25,14:56:33,Chakh It Raw,pcs,15
+08-01-26,13:19:57,Polybag,Kg,10
+08-01-26,13:21:53,Sticker,Pcs,1000
+08-01-2026,13:39:28,Jelly,Kg,5
+08-01-2026,14:01:12,Sticks,Kg,90

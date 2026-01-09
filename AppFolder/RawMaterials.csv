@@ -1,11 +1,13 @@
 Raw Material,Unit,Quantity
-Sticks,pcs,1013
-Tie,pcs,498
-PolyBag,pcs,206
+Sticks,pcs,1103
+Tie,pcs,598
+PolyBag,pcs,216
 Outer,pcs,100
 Master Outer,pcs,20
 Jelly Cubes,pcs,1200
-Cubes,Kg,5
-Sticker,Pcs,3
+Cubes,Kg,2
+Sticker,Pcs,1003
 test_Raw,grams,500
 Test_005,test_unit,264
+Chakh It Raw,pcs,10
+Jelly,Kg,5

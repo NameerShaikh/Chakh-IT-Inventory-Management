@@ -1,33 +1,53 @@
-Date,Time,Product,Unit,Quantity,,,
-02-10-25,5:19:07,Rangeen Pop Small,Master Outer,1,,,
-02-10-25,5:20:21,Rangeen Pop Small,Outer,1,,,
-04-10-25,12:16,Rangeen Pop Small,1,,,,
-04-10-25,13:02,Rangeen Pop Small,Outer,2,,,
-07-10-25,15:36:38,Melon Pop,Outer,2,,,
-07-10-25,15:36:38,Rangeen Pop Small,Outer,3,,,
-07-10-25,15:52:49,Rangeen Pop Small,Outer,5,,,
-07-10-25,15:52:49,Jalebi Jelly,Outer,3,,,
-07-10-25,16:04:01,Rangeen Pop Small,Outer,4,,,
-07-10-25,16:04:01,Melon Pop,Outer,2,,,
-07-10-25,16:18:47,Rangeen Pop Small,Outer,2,,,
-07-10-25,16:18:47,Jalebi Jelly,Outer,3,,,
-07-10-25,16:24:59,Rangeen Pop Small,Outer,5,,,
-07-10-25,16:24:59,Melon Pop,Outer,3,,,
-07-10-25,17:03:25,Rangeen Pop Small,Outer,4,,,
-07-10-25,17:03:25,Rangeen Pop Small,Outer,4,,,
-07-10-25,17:03:25,Rangeen Pop Small,Outer,4,,,
-07-10-25,17:03:25,Rangeen Pop Small,Outer,4,,,
-07-10-25,17:03:25,Melon Pop,Outer,1,,,
-07-10-25,17:03:25,Rangeen Pop Small,Outer,4,,,
-07-10-25,17:03:25,Melon Pop,Outer,1,,,
-07-10-25,17:05:31,Rangeen Pop Small,Outer,1,,,
-07-10-25,17:05:31,Rangeen Pop Small,Outer,1,,,
-07-10-25,17:05:31,Rangeen Pop Small,Outer,1,,,
-07-10-25,17:05:31,Rangeen Pop Small,Outer,1,,,
-07-10-25,17:34:12,Rangeen Pop Small,,1,,,
-07-10-25,17:34:12,Rangeen Pop Big,,1,,,
-07-10-25,17:34:12,Melon Pop,,1,,,
-07-10-25,17:34:12,Jalebi Jelly,,1,,,
-07-10-25,18:04:41,Rangeen Pop Small,Outer,4,,,
-07-10-25,18:04:41,Jalebi Jelly,Outer,3,,,
-08-10-25,20:01:40,Test007,Outer,20,2321,3,Cash
+Date,Time,Product,Unit,Quantity
+02-10-25,5:19:07,Rangeen Pop Small,Master Outer,1
+02-10-25,5:20:21,Rangeen Pop Small,Outer,1
+04-10-25,12:16,Rangeen Pop Small,1,
+04-10-25,13:02,Rangeen Pop Small,Outer,2
+07-10-25,15:36:38,Melon Pop,Outer,2
+07-10-25,15:36:38,Rangeen Pop Small,Outer,3
+07-10-25,15:52:49,Rangeen Pop Small,Outer,5
+07-10-25,15:52:49,Jalebi Jelly,Outer,3
+07-10-25,16:04:01,Rangeen Pop Small,Outer,4
+07-10-25,16:04:01,Melon Pop,Outer,2
+07-10-25,16:18:47,Rangeen Pop Small,Outer,2
+07-10-25,16:18:47,Jalebi Jelly,Outer,3
+07-10-25,16:24:59,Rangeen Pop Small,Outer,5
+07-10-25,16:24:59,Melon Pop,Outer,3
+07-10-25,17:03:25,Rangeen Pop Small,Outer,4
+07-10-25,17:03:25,Rangeen Pop Small,Outer,4
+07-10-25,17:03:25,Rangeen Pop Small,Outer,4
+07-10-25,17:03:25,Rangeen Pop Small,Outer,4
+07-10-25,17:03:25,Melon Pop,Outer,1
+07-10-25,17:03:25,Rangeen Pop Small,Outer,4
+07-10-25,17:03:25,Melon Pop,Outer,1
+07-10-25,17:05:31,Rangeen Pop Small,Outer,1
+07-10-25,17:05:31,Rangeen Pop Small,Outer,1
+07-10-25,17:05:31,Rangeen Pop Small,Outer,1
+07-10-25,17:05:31,Rangeen Pop Small,Outer,1
+07-10-25,17:34:12,Rangeen Pop Small,,1
+07-10-25,17:34:12,Rangeen Pop Big,,1
+07-10-25,17:34:12,Melon Pop,,1
+07-10-25,17:34:12,Jalebi Jelly,,1
+07-10-25,18:04:41,Rangeen Pop Small,Outer,4
+07-10-25,18:04:41,Jalebi Jelly,Outer,3
+08-10-25,20:01:40,Test007,Outer,20
+04-11-25,12:31:58,Rangeen Pop Big,Outers,2
+04-11-25,13:56:58,Rangeen Pop Big,Outers,2
+29-12-25,14:57:07,Chakh It Specials,Outer,10
+06-01-26,16:24:20,Rangeen Pop Small,Outer,15
+06-01-26,17:35:07,Melon Pop,Outer,15
+07-01-26,0:35:05,Melon Pop,Outers,20
+07-01-26,0:35:58,Melon Pop,Outer,20
+08-01-26,13:45:07,Melon Pop,Outers,2
+08-01-26,14:08:48,Melon Pop,Outers,2
+08-01-26,16:07:25,Chakh It Specials,Outers,10
+08-01-26,16:18:59,Chakh It Specials,Outer,10
+08-01-26,16:22:31,Chakh It Specials,Outers,50
+08-01-26,16:34:52,Melon Pop,Outers,11
+08-01-26,17:37:10,Testttt,Outers,10
+08-01-26,17:39:33,Chakh It Specials,Outers,5
+08-01-26,17:41:21,Melon Pop,Outers,85
+08-01-26,18:32:31,Chakh It Specials,Outers,85
+08-01-26,18:40:18,Melon Pop,Outers,10
+09-01-2026,10:40:25,Chakh It Specials,Outer,6
+09-01-2026,10:41:19,Melon Pop,Outers,2

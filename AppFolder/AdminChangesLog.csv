@@ -24,3 +24,12 @@
 09-Oct-25 4:31:35 AM,Add Raw Material,Test_005,test_unit
 09-Oct-25 6:10:10 AM,Add Customer,Nam
 09-Oct-25 6:19:40 AM,Add Customer,Nam_test
+11-Oct-25 4:21:13 PM,Remove Product,Test007
+11-Oct-25 6:22:26 PM,Add Customer,ketan
+15-Oct-25 2:54:03 PM,Change Product MRP,Testttt -> 30
+12-Nov-25 1:19:12 PM,Add Product,Test007,10,12,10
+12-Nov-25 1:20:04 PM,Change Product MRP,Test007 -> 10
+29-Dec-25 1:28:44 PM,Add Product,Chakh It Specials,50,12,20
+29-Dec-25 2:56:26 PM,Add Raw Material,Chakh It Raw,pcs
+09-Jan-26 10:49:51 AM,Add Product,addtest,10,50,12
+09-Jan-26 10:51:42 AM,Remove Product,addtest

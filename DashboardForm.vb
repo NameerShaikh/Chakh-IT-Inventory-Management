@@ -110,10 +110,23 @@ Public Class DashboardForm
         pnlChart.Controls.Add(chartFastest)
         pnlScrollableContainer.Controls.Add(pnlChart)
 
-        ' --- Hover effect to enlarge chart ---
+
+        ' --- Cursor feedback ---
         AddHandler chartFastest.MouseEnter, Sub()
-                                                ShowChartInCenter(chartFastest)
+                                                chartFastest.Cursor = Cursors.Hand
                                             End Sub
+
+        AddHandler chartFastest.MouseLeave, Sub()
+                                                chartFastest.Cursor = Cursors.Default
+                                            End Sub
+
+
+
+        ' --- Click to enlarge chart ---
+        AddHandler chartFastest.Click, Sub(sender, e)
+                                           ShowChartInCenter(DirectCast(sender, Chart))
+                                       End Sub
+
 
         ' --- Resize handler ---
         AddHandler Me.Resize, Sub(s, e)
@@ -220,20 +233,34 @@ Public Class DashboardForm
 
         ' --- StockOut / Fastest Products ---
         If File.Exists(stockOutCSV) Then
-            Dim currentMonth = DateTime.Now.ToString("MM-yy")
-            For Each line In File.ReadAllLines(stockOutCSV)
+            Dim nowMonth = DateTime.Now.Month
+            Dim nowYear = DateTime.Now.Year
+
+            For Each line In File.ReadAllLines(stockOutCSV).Skip(1) ' skip header
                 Dim parts = line.Split(","c)
-                If parts.Length >= 5 AndAlso parts(0).Contains(currentMonth) Then
+                If parts.Length < 5 Then Continue For
+
+                Dim saleDate As DateTime
+                If Not DateTime.TryParse(parts(0).Trim(), saleDate) Then Continue For
+
+
+                ' ✅ Correct month & year check
+                If saleDate.Month = nowMonth AndAlso saleDate.Year = nowYear Then
                     Dim qty As Integer = 0
                     Integer.TryParse(parts(4), qty)
+
                     totalProducts += qty
                     totalBills += 1
 
-                    ' Fastest products
-                    Dim product = parts(2)
-                    If productDict.ContainsKey(product) Then productDict(product) += qty Else productDict(product) = qty
+                    Dim product = parts(2).Trim()
+                    If productDict.ContainsKey(product) Then
+                        productDict(product) += qty
+                    Else
+                        productDict(product) = qty
+                    End If
                 End If
             Next
+
         End If
 
         ' --- Animate other KPI numbers ---
@@ -303,6 +330,12 @@ Public Class DashboardForm
 
 
 
+    Public Sub ReloadDashboard()
+        LoadData()
+    End Sub
+
+
+
 
 
     ' --- Animate KPI ---
@@ -364,4 +397,7 @@ Public Class DashboardForm
         frm.ShowDialog()
     End Sub
 
+    Private Sub DashboardForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class

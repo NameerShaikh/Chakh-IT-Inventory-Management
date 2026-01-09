@@ -145,9 +145,41 @@ Partial Class StockOutForm
         If updated Then
             File.WriteAllLines(availableStockPath, lines)
 
+
+            If Not File.Exists(stockOutCsvPath) Then
+                File.WriteAllText(stockOutCsvPath, "Date,Time,Product,Unit,Quantity" & Environment.NewLine)
+            End If
+
+
+
+
             ' --- Append to StockOut CSV ---
-            Dim lineCsv As String = $"{txtDate.Text},{txtTime.Text},{product},{stockUnit},{quantity},{batchNo},{txtSellingPrice.Text.Trim()},{paymentMode}"
-            File.AppendAllText(stockOutCsvPath, lineCsv & Environment.NewLine)
+            Dim lineCsv As String = $"{txtDate.Text},{txtTime.Text},{product},{stockUnit},{quantity}"
+
+            Using fs As New FileStream(stockOutCsvPath, FileMode.Append, FileAccess.Write, FileShare.Read)
+                Using sw As New StreamWriter(fs)
+                    sw.WriteLine(lineCsv)
+                    sw.Flush()
+                End Using
+            End Using
+
+
+            ' Refresh dashboard AFTER write
+            If Application.OpenForms.OfType(Of DashboardForm).Any() Then
+                Dim dash = Application.OpenForms.OfType(Of DashboardForm).First()
+                dash.Invoke(Sub()
+                                dash.ReloadDashboard()
+                            End Sub)
+            End If
+
+
+            If Application.OpenForms.OfType(Of DashboardForm).Any() Then
+                Dim dash = Application.OpenForms.OfType(Of DashboardForm).First()
+                dash.Invoke(Sub()
+                                dash.ReloadDashboard()
+                            End Sub)
+            End If
+
 
             ' --- Append to StockOut Excel ---
             Try

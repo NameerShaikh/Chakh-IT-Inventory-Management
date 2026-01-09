@@ -29,6 +29,9 @@ Partial Class FrmMain
         Me.RawMaterialsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReportsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BillsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FinancesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AdminPanelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RemarksToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -42,9 +45,6 @@ Partial Class FrmMain
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.contentPanel = New System.Windows.Forms.Panel()
-        Me.FinancesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AdminPanelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RemarksToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -90,6 +90,24 @@ Partial Class FrmMain
         Me.BillsToolStripMenuItem.Name = "BillsToolStripMenuItem"
         Me.BillsToolStripMenuItem.Size = New System.Drawing.Size(50, 24)
         Me.BillsToolStripMenuItem.Text = "Bills"
+        '
+        'FinancesToolStripMenuItem
+        '
+        Me.FinancesToolStripMenuItem.Name = "FinancesToolStripMenuItem"
+        Me.FinancesToolStripMenuItem.Size = New System.Drawing.Size(79, 24)
+        Me.FinancesToolStripMenuItem.Text = "Finances"
+        '
+        'AdminPanelToolStripMenuItem
+        '
+        Me.AdminPanelToolStripMenuItem.Name = "AdminPanelToolStripMenuItem"
+        Me.AdminPanelToolStripMenuItem.Size = New System.Drawing.Size(106, 24)
+        Me.AdminPanelToolStripMenuItem.Text = "Admin Panel"
+        '
+        'RemarksToolStripMenuItem
+        '
+        Me.RemarksToolStripMenuItem.Name = "RemarksToolStripMenuItem"
+        Me.RemarksToolStripMenuItem.Size = New System.Drawing.Size(79, 24)
+        Me.RemarksToolStripMenuItem.Text = "Remarks"
         '
         'ExitToolStripMenuItem
         '
@@ -243,28 +261,11 @@ Partial Class FrmMain
         Me.contentPanel.Size = New System.Drawing.Size(835, 473)
         Me.contentPanel.TabIndex = 20
         '
-        'FinancesToolStripMenuItem
-        '
-        Me.FinancesToolStripMenuItem.Name = "FinancesToolStripMenuItem"
-        Me.FinancesToolStripMenuItem.Size = New System.Drawing.Size(79, 24)
-        Me.FinancesToolStripMenuItem.Text = "Finances"
-        '
-        'AdminPanelToolStripMenuItem
-        '
-        Me.AdminPanelToolStripMenuItem.Name = "AdminPanelToolStripMenuItem"
-        Me.AdminPanelToolStripMenuItem.Size = New System.Drawing.Size(106, 24)
-        Me.AdminPanelToolStripMenuItem.Text = "Admin Panel"
-        '
-        'RemarksToolStripMenuItem
-        '
-        Me.RemarksToolStripMenuItem.Name = "RemarksToolStripMenuItem"
-        Me.RemarksToolStripMenuItem.Size = New System.Drawing.Size(79, 24)
-        Me.RemarksToolStripMenuItem.Text = "Remarks"
-        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1181, 654)
         Me.Controls.Add(Me.contentPanel)
         Me.Controls.Add(Me.Panel1)
@@ -272,6 +273,7 @@ Partial Class FrmMain
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label3)
+        Me.DoubleBuffered = True
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Name = "FrmMain"
