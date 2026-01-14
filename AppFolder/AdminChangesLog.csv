@@ -33,3 +33,26 @@
 29-Dec-25 2:56:26 PM,Add Raw Material,Chakh It Raw,pcs
 09-Jan-26 10:49:51 AM,Add Product,addtest,10,50,12
 09-Jan-26 10:51:42 AM,Remove Product,addtest
+09-Jan-26 11:02:34 AM,Add Product,addtesting,5,100,20 | Stock Initialized
+09-Jan-26 11:15:49 AM,Add Product,xyz,15,50,12 | Stock Initialized
+09-Jan-26 11:23:52 AM,Add Product,zee,10,50,12 | Stock Initialized
+09-Jan-26 11:25:31 AM,Remove Product,zee
+09-Jan-26 11:32:34 AM,Add Product,zyx,60,50,12 | Stock Initialized
+09-Jan-26 11:33:07 AM,Remove Product,zyx
+09-Jan-26 11:33:10 AM,Remove Product from Stock,zyx
+09-Jan-26 11:36:48 AM,Change Product MRP,Chakh It Specials -> 60
+09-Jan-26 11:38:11 AM,Change Pcs per Outer,Chakh It Specials -> 13
+09-Jan-26 11:42:08 AM,Change Product MRP,Chakh It Specials -> 70
+09-Jan-26 11:42:27 AM,Change Pcs per Outer,Chakh It Specials -> 40
+09-Jan-26 11:43:18 AM,Change Outers per Master Outer,Chakh It Specials -> 12
+09-Jan-26 11:44:45 AM,Add Customer,teseadd
+09-Jan-26 11:45:02 AM,Remove Customer,teseadd
+09-Jan-26 11:45:28 AM,Add Raw Material,rawwww,kg
+09-Jan-26 11:46:09 AM,Remove Raw Material,rawwww
+09-Jan-26 11:50:12 AM,Change Password,Old:wesdfgdf, New:wedfddf
+09-Jan-26 11:50:36 AM,Change Password,Old:wesdfgdf, New:2222222
+09-Jan-26 12:16:24 PM,Change Product MRP,Test007 -> 100
+09-Jan-26 12:17:08 PM,Change Product MRP,Testttt -> 15
+09-Jan-26 12:17:54 PM,Change Product MRP,Testttt -> 20
+09-Jan-26 12:18:48 PM,Remove Raw Material,test_Raw
+09-Jan-26 12:19:41 PM,Change Password,Password changed

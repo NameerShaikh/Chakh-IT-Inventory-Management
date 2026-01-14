@@ -9,9 +9,11 @@ Public Class AdminPanel
     Private ReadOnly RawMaterialFile As String = Path.Combine(ROOT_FOLDER, "RawMaterialsConfig.csv")
     Private ReadOnly PasswordFile As String = Path.Combine(ROOT_FOLDER, "Password.csv")
     Private ReadOnly logFile As String = Path.Combine(ROOT_FOLDER, "AdminChangesLog.csv")
+    Private ReadOnly availableStockPath As String = Path.Combine(ROOT_FOLDER, "AvailableStock.csv")
 
     Public Sub New()
         InitializeComponent()
+
         ' Initialize log file if not exists
         If Not File.Exists(logFile) Then
             File.WriteAllText(logFile, "DateTime,Action,Details" & Environment.NewLine)
@@ -30,68 +32,28 @@ Public Class AdminPanel
         AddHandler btnChangePassword.Click, AddressOf btnChangePassword_Click
 
         ApplyUniqueTheme()
-
-
     End Sub
 
-
-
+    ' ==========================
+    ' UI Theme
+    ' ==========================
     Private Sub ApplyUniqueTheme()
-        ' -----------------------
-        ' Side Panel
-        ' -----------------------
-        PanelButtons.BackColor = Color.FromArgb(0, 102, 102) ' Deep teal
-
-        ' -----------------------
-        ' Buttons in Side Panel
-        ' -----------------------
+        PanelButtons.BackColor = Color.FromArgb(0, 102, 102)
         For Each ctrl As Control In PanelButtons.Controls
             If TypeOf ctrl Is Button Then
-                Dim btn As Button = CType(ctrl, Button)
-                btn.BackColor = Color.FromArgb(0, 128, 128) ' Teal
-                btn.ForeColor = Color.White
-                btn.FlatStyle = FlatStyle.Flat
-                btn.FlatAppearance.BorderSize = 0
-                btn.Font = New Font("Segoe UI", 10, FontStyle.Bold)
-                ' Hover effect: cyan-ish
-                AddHandler btn.MouseEnter, Sub(s, e) btn.BackColor = Color.FromArgb(0, 180, 180)
-                AddHandler btn.MouseLeave, Sub(s, e) btn.BackColor = Color.FromArgb(0, 128, 128)
-            End If
-        Next
-
-        ' -----------------------
-        ' PanelFormContainer
-        ' -----------------------
-        PanelFormContainer.BackColor = Color.FromArgb(245, 250, 250) ' Soft off-white
-        PanelFormContainer.BorderStyle = BorderStyle.FixedSingle
-
-        ' -----------------------
-        ' Controls inside PanelFormContainer
-        ' -----------------------
-        For Each ctrl As Control In PanelFormContainer.Controls
-            If TypeOf ctrl Is TextBox Then
-                Dim txt As TextBox = CType(ctrl, TextBox)
-                txt.BackColor = Color.FromArgb(235, 245, 245) ' Light teal-ish
-                txt.ForeColor = Color.FromArgb(20, 20, 20)   ' Dark text
-                txt.BorderStyle = BorderStyle.FixedSingle
-            ElseIf TypeOf ctrl Is Label Then
-                Dim lbl As Label = CType(ctrl, Label)
-                lbl.ForeColor = Color.FromArgb(0, 102, 102) ' Deep teal
-            ElseIf TypeOf ctrl Is Button Then
                 Dim btn As Button = CType(ctrl, Button)
                 btn.BackColor = Color.FromArgb(0, 128, 128)
                 btn.ForeColor = Color.White
                 btn.FlatStyle = FlatStyle.Flat
                 btn.FlatAppearance.BorderSize = 0
-                ' Hover effect
+                btn.Font = New Font("Segoe UI", 10, FontStyle.Bold)
                 AddHandler btn.MouseEnter, Sub(s, e) btn.BackColor = Color.FromArgb(0, 180, 180)
                 AddHandler btn.MouseLeave, Sub(s, e) btn.BackColor = Color.FromArgb(0, 128, 128)
             End If
         Next
+        PanelFormContainer.BackColor = Color.FromArgb(245, 250, 250)
+        PanelFormContainer.BorderStyle = BorderStyle.FixedSingle
     End Sub
-
-
-
 
     ' ==========================
     ' Helper: Clear panel
@@ -101,13 +63,11 @@ Public Class AdminPanel
     End Sub
 
     ' ==========================
-    ' Helper: Return starting X offset
+    ' Helper: Return X offset
     ' ==========================
     Private Function GetFieldLeft() As Integer
-        ' Change this value to shift fields to the right
         Return 250
     End Function
-
 
     ' ==========================
     ' Helper: Load CSV into ComboBox
@@ -193,6 +153,9 @@ Public Class AdminPanel
         Dim btnSave As New Button With {.Text = "Save", .Top = yPos, .Left = 180 + xOffset}
         AddHandler btnSave.Click, Sub()
                                       SaveProduct(textboxes(0).Text, textboxes(1).Text, textboxes(2).Text, textboxes(3).Text)
+                                      For Each txt In textboxes
+                                          txt.Clear()
+                                      Next
                                   End Sub
         PanelFormContainer.Controls.Add(btnSave)
     End Sub
@@ -200,13 +163,16 @@ Public Class AdminPanel
     Private Sub SaveProduct(name As String, mrp As String, pcs As String, outers As String)
         Dim newLine As String = $"{name},{mrp},{pcs},{outers}"
         File.AppendAllText(ProductFile, newLine & Environment.NewLine)
-        LogChange("Add Product", newLine)
+
+        If Not File.Exists(availableStockPath) Then
+            File.WriteAllText(availableStockPath, "Product,MRP,PcsPerOuter,Outer,MasterOuters,TotalPcs" & Environment.NewLine)
+        End If
+
+        File.AppendAllText(availableStockPath, $"{name},{mrp},{pcs},0,0,0" & Environment.NewLine)
+
+        LogChange("Add Product", $"{newLine} | Stock Initialized")
         MessageBox.Show("Product added successfully!")
     End Sub
-
-
-
-
 
     ' ==========================
     ' 2. Remove Product
@@ -221,7 +187,18 @@ Public Class AdminPanel
 
         Dim btnSave As New Button With {.Text = "Remove Product", .Top = 60, .Left = 180 + xOffset}
         AddHandler btnSave.Click, Sub()
-                                      RemoveLineFromCSV(ProductFile, cmb.SelectedItem.ToString(), 0, "Remove Product")
+                                      Dim productToRemove As String = cmb.SelectedItem.ToString()
+                                      RemoveLineFromCSV(ProductFile, productToRemove, 0, "Remove Product")
+
+                                      ' Remove from AvailableStock.csv
+                                      If File.Exists(availableStockPath) Then
+                                          Dim lines As List(Of String) = File.ReadAllLines(availableStockPath).ToList()
+                                          lines = lines.Where(Function(l) Not l.Split(","c)(0).Trim().Equals(productToRemove, StringComparison.OrdinalIgnoreCase)).ToList()
+                                          File.WriteAllLines(availableStockPath, lines)
+                                      End If
+
+                                      MessageBox.Show($"Product '{productToRemove}' removed from software successfully!")
+                                      ClearPanel()
                                   End Sub
 
         PanelFormContainer.Controls.Add(lbl)
@@ -242,10 +219,34 @@ Public Class AdminPanel
 
         Dim lblMRP As New Label With {.Text = "New MRP:", .Top = 60, .Left = 20 + xOffset}
         Dim txtMRP As New TextBox With {.Top = 60, .Left = 180 + xOffset, .Width = 200}
-        Dim btnSave As New Button With {.Text = "Change MRP", .Top = 100, .Left = 180 + xOffset}
 
+        Dim btnSave As New Button With {.Text = "Change MRP", .Top = 100, .Left = 180 + xOffset}
         AddHandler btnSave.Click, Sub()
-                                      ChangeCSVValue(ProductFile, cmbProduct.SelectedItem.ToString(), 0, 1, txtMRP.Text, "Change Product MRP")
+                                      Dim productName As String = cmbProduct.SelectedItem.ToString()
+                                      Dim newMRP As String = txtMRP.Text.Trim()
+                                      If newMRP = "" Then
+                                          MessageBox.Show("Please enter a new MRP.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                                          Return
+                                      End If
+
+                                      ChangeCSVValue(ProductFile, productName, 0, 1, newMRP, "Change Product MRP")
+
+                                      If File.Exists(availableStockPath) Then
+                                          Dim lines As List(Of String) = File.ReadAllLines(availableStockPath).ToList()
+                                          For i As Integer = 1 To lines.Count - 1
+                                              Dim parts = lines(i).Split(","c)
+                                              If parts.Length > 1 AndAlso parts(0).Trim().Equals(productName, StringComparison.OrdinalIgnoreCase) Then
+                                                  parts(1) = newMRP
+                                                  lines(i) = String.Join(",", parts)
+                                                  Exit For
+                                              End If
+                                          Next
+                                          File.WriteAllLines(availableStockPath, lines)
+                                      End If
+
+                                      cmbProduct.SelectedIndex = 0
+                                      txtMRP.Clear()
+                                      MessageBox.Show($"MRP of '{productName}' updated successfully!")
                                   End Sub
 
         PanelFormContainer.Controls.Add(lblName)
@@ -268,10 +269,38 @@ Public Class AdminPanel
 
         Dim lblPcs As New Label With {.Text = "New Pcs per Outer:", .Top = 60, .Left = 20 + xOffset}
         Dim txtPcs As New TextBox With {.Top = 60, .Left = 180 + xOffset, .Width = 200}
-        Dim btnSave As New Button With {.Text = "Change Pcs", .Top = 100, .Left = 180 + xOffset}
 
+        Dim btnSave As New Button With {.Text = "Change Pcs", .Top = 100, .Left = 180 + xOffset}
         AddHandler btnSave.Click, Sub()
-                                      ChangeCSVValue(ProductFile, cmbProduct.SelectedItem.ToString(), 0, 2, txtPcs.Text, "Change Pcs per Outer")
+                                      Dim productName As String = cmbProduct.SelectedItem.ToString()
+                                      Dim newPcsStr As String = txtPcs.Text.Trim()
+                                      Dim newPcs As Integer = 0
+                                      If Not Integer.TryParse(newPcsStr, newPcs) OrElse newPcs <= 0 Then
+                                          MessageBox.Show("Please enter a valid number for Pcs per Outer.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                                          Return
+                                      End If
+
+                                      ChangeCSVValue(ProductFile, productName, 0, 2, newPcsStr, "Change Pcs per Outer")
+
+                                      If File.Exists(availableStockPath) Then
+                                          Dim lines As List(Of String) = File.ReadAllLines(availableStockPath).ToList()
+                                          For i As Integer = 1 To lines.Count - 1
+                                              Dim parts = lines(i).Split(","c)
+                                              If parts.Length > 2 AndAlso parts(0).Trim().Equals(productName, StringComparison.OrdinalIgnoreCase) Then
+                                                  parts(2) = newPcsStr
+                                                  Dim currentOuter As Integer = 0
+                                                  Integer.TryParse(parts(3).Trim(), currentOuter)
+                                                  parts(5) = (currentOuter * newPcs).ToString()
+                                                  lines(i) = String.Join(",", parts)
+                                                  Exit For
+                                              End If
+                                          Next
+                                          File.WriteAllLines(availableStockPath, lines)
+                                      End If
+
+                                      cmbProduct.SelectedIndex = 0
+                                      txtPcs.Clear()
+                                      MessageBox.Show($"Pcs per Outer for '{productName}' updated successfully!")
                                   End Sub
 
         PanelFormContainer.Controls.Add(lblName)
@@ -298,6 +327,8 @@ Public Class AdminPanel
 
         AddHandler btnSave.Click, Sub()
                                       ChangeCSVValue(ProductFile, cmbProduct.SelectedItem.ToString(), 0, 3, txtOuters.Text, "Change Outers per Master Outer")
+                                      cmbProduct.SelectedIndex = 0
+                                      txtOuters.Clear()
                                   End Sub
 
         PanelFormContainer.Controls.Add(lblName)
@@ -321,6 +352,7 @@ Public Class AdminPanel
                                       File.AppendAllText(CustomerFile, txt.Text & Environment.NewLine)
                                       LogChange("Add Customer", txt.Text)
                                       MessageBox.Show("Customer added!")
+                                      txt.Clear()
                                   End Sub
 
         PanelFormContainer.Controls.Add(lbl)
@@ -362,10 +394,33 @@ Public Class AdminPanel
         Dim btnSave As New Button With {.Text = "Add Raw Material", .Top = 100, .Left = 180 + xOffset}
 
         AddHandler btnSave.Click, Sub()
-                                      Dim line As String = $"{txtName.Text},{txtUnit.Text}"
-                                      File.AppendAllText(RawMaterialFile, line & Environment.NewLine)
-                                      LogChange("Add Raw Material", line)
-                                      MessageBox.Show("Raw Material added!")
+                                      Dim rawName = txtName.Text.Trim()
+                                      Dim rawUnit = txtUnit.Text.Trim()
+
+                                      If rawName = "" Or rawUnit = "" Then
+                                          MessageBox.Show("Please enter both Raw Material name and Unit.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                                          Return
+                                      End If
+
+                                      ' --- Append to RawMaterialsConfig.csv ---
+                                      File.AppendAllText(RawMaterialFile, $"{rawName},{rawUnit}" & Environment.NewLine)
+
+                                      ' --- Ensure RawMaterials.csv exists with headers ---
+                                      If Not File.Exists(Path.Combine(ROOT_FOLDER, "RawMaterials.csv")) Then
+                                          File.WriteAllText(Path.Combine(ROOT_FOLDER, "RawMaterials.csv"),
+                                                            "Raw Material,Unit,Quantity" & Environment.NewLine)
+                                      End If
+
+                                      ' --- Append to RawMaterials.csv with initial quantity 0 ---
+                                      File.AppendAllText(Path.Combine(ROOT_FOLDER, "RawMaterials.csv"),
+                                                         $"{rawName},{rawUnit},0" & Environment.NewLine)
+
+                                      LogChange("Add Raw Material", $"{rawName},{rawUnit}")
+                                      MessageBox.Show("Raw Material added successfully!")
+
+                                      ' --- Clear fields ---
+                                      txtName.Clear()
+                                      txtUnit.Clear()
                                   End Sub
 
         PanelFormContainer.Controls.Add(lblName)
@@ -387,8 +442,30 @@ Public Class AdminPanel
         cmbRaw.Top = 20
 
         Dim btnSave As New Button With {.Text = "Remove Raw Material", .Top = 60, .Left = 180 + xOffset}
+
         AddHandler btnSave.Click, Sub()
-                                      RemoveLineFromCSV(RawMaterialFile, cmbRaw.SelectedItem.ToString(), 0, "Remove Raw Material")
+                                      Dim rmName = cmbRaw.SelectedItem.ToString()
+
+                                      ' Remove from RawMaterialsConfig.csv
+                                      If File.Exists(RawMaterialFile) Then
+                                          Dim lines = File.ReadAllLines(RawMaterialFile).ToList()
+                                          lines = lines.Where(Function(l) Not l.Split(","c)(0).Trim().Equals(rmName, StringComparison.OrdinalIgnoreCase)).ToList()
+                                          File.WriteAllLines(RawMaterialFile, lines)
+                                      End If
+
+                                      ' Remove from RawMaterials.csv
+                                      Dim rmCsvPath = Path.Combine(ROOT_FOLDER, "RawMaterials.csv")
+                                      If File.Exists(rmCsvPath) Then
+                                          Dim lines = File.ReadAllLines(rmCsvPath).ToList()
+                                          lines = lines.Where(Function(l) Not l.Split(","c)(0).Trim().Equals(rmName, StringComparison.OrdinalIgnoreCase)).ToList()
+                                          File.WriteAllLines(rmCsvPath, lines)
+                                      End If
+
+                                      LogChange("Remove Raw Material", rmName)
+                                      MessageBox.Show($"Raw Material '{rmName}' removed successfully!")
+
+                                      ' --- Clear panel ---
+                                      ClearPanel()
                                   End Sub
 
         PanelFormContainer.Controls.Add(lbl)
@@ -409,9 +486,33 @@ Public Class AdminPanel
         Dim btnSave As New Button With {.Text = "Change Password", .Top = 100, .Left = 180 + xOffset}
 
         AddHandler btnSave.Click, Sub()
-                                      File.WriteAllText(PasswordFile, txtNew.Text)
-                                      LogChange("Change Password", $"Old:{txtOld.Text}, New:{txtNew.Text}")
-                                      MessageBox.Show("Password changed!")
+                                      Dim oldPass = txtOld.Text.Trim()
+                                      Dim newPass = txtNew.Text.Trim()
+
+                                      ' Validate
+                                      If oldPass = "" Or newPass = "" Then
+                                          MessageBox.Show("Both old and new passwords are required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                                          Return
+                                      End If
+
+                                      Dim currentPass As String = ""
+                                      If File.Exists(PasswordFile) Then
+                                          currentPass = File.ReadAllText(PasswordFile).Trim()
+                                      End If
+
+                                      If oldPass <> currentPass Then
+                                          MessageBox.Show("Old password is incorrect.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                          Return
+                                      End If
+
+                                      ' Update password
+                                      File.WriteAllText(PasswordFile, newPass)
+                                      LogChange("Change Password", $"Password changed")
+                                      MessageBox.Show("Password changed successfully!")
+
+                                      ' --- Clear fields ---
+                                      txtOld.Clear()
+                                      txtNew.Clear()
                                   End Sub
 
         PanelFormContainer.Controls.Add(lblOld)

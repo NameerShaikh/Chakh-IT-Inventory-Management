@@ -30,3 +30,4 @@ INV080120261741,test_NAM,123456,08-01-26,17:40:51,Melon Pop x85 (Outers),85,7650
 INV080120261832,Acme Traders,654321,08-01-26,18:31:56,Chakh It Specials x85 (Outers),85,51000,Complete Payment,Online,,0
 INV080120261840,Acme Traders,12345,08-01-26,18:39:52,"Melon Pop x10 (Outers)",10,9000.00,Complete Payment,Online,,0.00
 INV090120261041,Acme Traders,23432,09-01-26,10:40:53,"Melon Pop x2 (Outers)",2,1800.00,Complete Payment,Online,,0.00
+INV140120261338,XYZ Enterprises,123456789,14-01-26,13:37:33,"Rangeen Pop Big x10 (Outers)",10,5200.00,Partial Payment,Online,2500,2700.00

@@ -151,7 +151,8 @@ Partial Class StockInForm
             lines = File.ReadAllLines(availableStockPath).ToList()
         Else
             ' Create header if file doesn't exist
-            lines.Add("Product,MRP,PcsPerOuter,Outer,TotalPcs")
+            lines.Add("Product,MRP,PcsPerOuter,Outer,MasterOuters,TotalPcs")
+
             File.WriteAllLines(availableStockPath, lines)
         End If
 
@@ -161,27 +162,37 @@ Partial Class StockInForm
         ' --- Try to find product in AvailableStock ---
         For i As Integer = 1 To lines.Count - 1
             Dim cols = lines(i).Split(","c).ToList()
+
+            ' Ensure column safety
+            While cols.Count < 6
+                cols.Add("0")
+            End While
+
             If cols(0).Trim().Equals(product, StringComparison.OrdinalIgnoreCase) Then
                 productFound = True
+
                 Dim currentOuter As Integer = 0
                 Integer.TryParse(cols(3).Trim(), currentOuter)
 
+                ' 🔹 APPLY STOCK IN FIRST
                 If stockUnit.Equals("Outer", StringComparison.OrdinalIgnoreCase) Then
                     currentOuter += quantity
                 ElseIf stockUnit.Equals("Master Outer", StringComparison.OrdinalIgnoreCase) Then
                     currentOuter += quantity * outersPerMaster
                 End If
 
-                cols(3) = currentOuter.ToString()
-                Dim totalPcs As Integer = pcsPerOuter * currentOuter
-                If cols.Count >= 5 Then
-                    cols(4) = totalPcs.ToString()
-                Else
-                    While cols.Count < 5
-                        cols.Add("")
-                    End While
-                    cols(4) = totalPcs.ToString()
+                If currentOuter < 0 Then currentOuter = 0
+
+                Dim masterOuters As Integer = 0
+                If outersPerMaster > 0 Then
+                    masterOuters = currentOuter \ outersPerMaster
                 End If
+
+                Dim totalPcs As Integer = currentOuter * pcsPerOuter
+
+                cols(3) = currentOuter.ToString()      ' Outer
+                cols(4) = masterOuters.ToString()      ' MasterOuters
+                cols(5) = totalPcs.ToString()          ' TotalPcs
 
                 lines(i) = String.Join(",", cols)
                 updated = True
@@ -192,16 +203,28 @@ Partial Class StockInForm
         ' --- If product not found, add new row ---
         If Not productFound Then
             Dim newOuter As Integer = 0
+
             If stockUnit.Equals("Outer", StringComparison.OrdinalIgnoreCase) Then
                 newOuter = quantity
             ElseIf stockUnit.Equals("Master Outer", StringComparison.OrdinalIgnoreCase) Then
                 newOuter = quantity * outersPerMaster
             End If
-            Dim newTotalPcs As Integer = pcsPerOuter * newOuter
-            Dim newLine As String = $"{product},0,{pcsPerOuter},{newOuter},{newTotalPcs}"
+
+            Dim masterOuters As Integer = 0
+            If outersPerMaster > 0 Then
+                masterOuters = newOuter \ outersPerMaster
+            End If
+
+            Dim newTotalPcs As Integer = newOuter * pcsPerOuter
+
+            ' ✅ FULL 6-COLUMN ROW (MATCHES HEADER)
+            Dim newLine As String =
+        $"{product},0,{pcsPerOuter},{newOuter},{masterOuters},{newTotalPcs}"
+
             lines.Add(newLine)
             updated = True
         End If
+
 
         ' --- Write back to AvailableStock ---
         File.WriteAllLines(availableStockPath, lines)

@@ -39,3 +39,11 @@ Entry Date,Entry Time,Product,Stock Unit,Quantity,PcsPerOuter,Total Pieces,Batch
 08-01-26,17:40:21,Melon Pop,Outer,350,60,21000,1234567,8,Online
 09-01-26,10:50:00,addtest,Outer,10,50,500,123456,2,Online
 09-01-26,10:50:33,addtest,Outer,2,50,100,1345,5,Online
+09-01-26,11:03:08,addtesting,Outer,25,100,2500,2345,3,Online
+09-01-26,11:16:00,xyz,Outer,15,50,750,222222,3,Online
+09-01-26,11:16:55,xyz,Outer,20,50,1000,23432,2,Cash
+09-01-26,11:18:01,xyz,Outer,20,50,1000,222,1,Cash
+09-01-26,11:24:00,zee,Outer,45,50,2250,234,5,Cash
+09-01-26,11:32:40,zyx,Outer,60,50,3000,12345,3,Cash
+09-01-26,11:44:18,Chakh It Specials,Outer,6,40,240,,,Online
+14-01-2026,13:35:12,Chakh It Specials,Outer,10,40,400,23456789,9,Cash

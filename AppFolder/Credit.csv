@@ -1,6 +1,5 @@
 InvoiceID,CustomerName,CustomerContact,Date,Time,GrandTotal,PaidAmount,OutstandingAmount,PaymentStatus,PaymentMode,ProductsString
 INV071020252123,XYZ Enterprises,1234567890,07-10-25,21:21:37,28550,18500,10050,Partial Payment,Cash,Rangeen Pop Small x5 (Outers) | Rangeen Pop Big x1 (MasterOuters) | Melon Pop x1 (Outers) | Jalebi Jelly x1 (MasterOuters)
-INV091020252125,Jane Smith,9123456780,09-10-25,14:20:45,20000,10000,10000,Partial Payment,Cash,Jalebi Jelly x2 (MasterOuters) | Rangeen Pop Big x1 (MasterOuters)
 INV101020252126,Acme Traders,9988776655,10-10-25,9:30:55,12000,0,12000,Unpaid,Cash,Rangeen Pop Small x4 (Outers) | Melon Pop x1 (Outers)
 INV111020252127,XYZ Enterprises,1234567890,11-10-25,16:45:20,18000,18000,0,Fully Paid,Card,Rangeen Pop Small x2 (Outers) | Jalebi Jelly x1 (MasterOuters)
 INV121020252128,Test,7894561230,12-10-25,11:10:05,22000,12000,10000,Partial Payment,Cash,Rangeen Pop Big x2 (MasterOuters) | Melon Pop x3 (Outers)
